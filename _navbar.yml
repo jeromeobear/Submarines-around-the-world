@@ -1,0 +1,48 @@
+name: "Submarines"
+title: "Homebase"
+type: inverse
+left:
+  - text: "Countries"
+    menu:
+      - text: "Albania"
+        href: ./Albania.html
+      - text: "Algeria"
+        href: ./Algeria.html
+      - text: "Argentina"
+        href: ./Argentina.html
+      - text: "Australia"
+        href: ./Australia.html
+  - text: "World war 2"
+    menu:
+      - text: "Summary"
+        href: ./Summary.html
+        menu:
+      - text: "Theatres"
+        menu:
+            - text: "Arctic"
+              href: ./Ocean_Arctic.html
+            - text: "Atlantic ocean"
+              href: ./Ocean_Atlantic.html
+            - text: "Baltic sea"
+              href: ./Ocean_Baltic.html
+            - text: "Black sea"
+              href: ./Ocean_Black.html
+            - text: "Indian ocean"
+              href: ./Ocean_Indian.html
+            - text: "Mediterranean sea"
+              href: ./Ocean_Mediterranean.html
+            - text: "Pacific ocean"
+              href: ./Ocean_Pacific.html
+      - text: "Countries"
+        menu:
+      - text: "Classes"
+        menu:
+  - text: "About me"
+    menu:
+      - text: "Learn more about me"
+        href: ./aboutme.html
+  - text: "Contact"
+    href: ./contact.html
+right:
+  - icon: fa-github fa-lg
+    href: https://github.com/githubusername/mywebsite
