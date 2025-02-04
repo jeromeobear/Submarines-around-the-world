@@ -1,0 +1,131 @@
+---
+title: "Argentina"
+output: html_document
+date: "2024-07-12"
+---
+
+```{r, warning=F, echo=F, message=F}
+source("Functions.R")
+management_fcn(country="Argentina")
+country="Argentina"
+```
+
+Argentina is a South American country of 46,1 million people, with a long coastline along the Southern Atlantic Ocean. Furthermore it shares control of the strategic cape of Good Hope with neighboring Chile. It Officially declared independence from Spain in 1816, and has at times one of the most powerful navies regionally. Once a wealthy country, the Argentina has gone through severe financial downturns in the later half of the 20th and early 21st centuries, which has impacted it's navy.
+
+Argentina's navy dates back from independence, but within the time frame of it's submarine operations, we can define four periods of growth of the overall navy, which is reflected in it's submarine force. First, in the 1920s and 1930s, Argentina sourced many new warships from Italy, the United Kingdom, and Spain (3 cruisers, 13 destroyers, and 3 submarines), which with 2 battleships and 4 destroyers from the 1910s gave Argentina the most powerful navy in Latin America by the start of World War 2. However, being neutral during the conflict, with Axis sympathies, meant Argentina did not receive the material help of other South American countries (namely Brazil), meaning that by 1945 all these ship, though not very old for some of them, were outdated in terms of equipment (radar, sonar, weaponry). To add to these issues, whereas Brazil had developed indigenous shipbuilding during the war, Argentina barely tried (with the construction of 2 corvettes and a few minesweepers), making it still entirely reliant on foreign imports for major fleet units. The next period of growth from the late 1940s to early 1970s was entirely composed of second-hand but modernized World War 2 warships from the United States, the United Kingdom, and Canada (2 aircraft carriers, 2 cruisers, 9 destroyers, 4 frigates, 1 corvette, and 4 submarines) whilst building 2 more corvettes locally. The third period came in the late 1970s and 1980s when Argentina sourced newly built and modern equipment again from Germany, France, and the United Kingdom (2 missile destroyers, 4 missile frigates, 3 missile corvettes, and 4 submarines). Another 2 submarines and 6 corvettes of German design were to built locally, however by the mid 1980s the financial situation deteriorated and the 2 submarines were cancelled, with 2 of the corvettes being postponed until finally resumed in the early 2000s. The Falkland war in 1982 also delayed some deliveries of modern equipment due to embargoes. The last and current period of growth of the Argentinian navy reflects the current economic limitations and now mostly peaceful relationship with other regional powers (Brazil, Chile), and only includes 4 new modern ocean patrol vessels from France.
+
+In all Argentina has almost nearly continuously submarines operated since 1933, with a total of 11 submarines (3 modern Italian in 1933, 4 second-hand from the United states in the 1960s and 1970s, and 4 modern German ones in the 1970s and 1980s). Of the 4 newer submarines, only 2 currently remain as docked training ships with no replacement in sight in the near future. Thus Argentina does not have a functional submarine fleet since 2020. During it's history, 2 submarines have been lost. One Gato submarine was hit by British helicopters and grounded during the Falkland war in 1982, and one of the most modern TR1700 submarines was lost in an accident in 2017.
+
+# Submarines operated by Argentina
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+summary_fcn(country="Argentina")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
+weapons_fcn(country="Argentina")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+builder_fcn(country="Argentina")
+class_fcn(country="Argentina")
+```
+
+# Individual submarines by class
+
+## Specification summaries
+
+```{r, warning=F, echo=F, message=F, fig.width=13, fig.height=6/4+1}
+specs1_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=13, fig.height=6/2+2}
+specs2_fcn()
+```
+
+## Settembrini class
+
+These 3 submarines are related to the Settembrini group of Italian medium ocean-going submarines built during the 1920s to World War 
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Ocean Medium",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Ocean Medium",c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+![](https://www.shipbucket.com/files/real/AR/Salta/none/177_S-2Salta_20230507142928.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Ocean Medium")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(3/4+1)}
+class_sub_fcn(class="Ocean Medium")
+```
+
+## Balao class
+
+The US provided 4 Balao submarines in two batches. A first in 1960 unmodernized, and a second in 1971 with GUPPY modernization. One was lost during the Falklands war
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="SS-285 Balao",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="SS-285 Balao",c("Version","Boats","Year","Torpedo_text")])
+```
+
+![](https://www.shipbucket.com/files/real/AR/Balao/none/9119_S-11SantaFe_20230507143000.png)
+![](https://www.shipbucket.com/files/real/AR/Balao/none/9120_S-12SantiagodelEstero_20230507143006.png)
+![](https://www.shipbucket.com/files/real/AR/Balao/none/9069_S-22SantiagodelEstero_20230507143019.png)
+![](https://www.shipbucket.com/files/real/AR/Balao/none/9068_S-21SantaFe_20230507143014.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_batch_fcn(class="SS-285 Balao")
+class_serv_fcn(class="SS-285 Balao")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(4/4+1)}
+class_sub_fcn(class="SS-285 Balao")
+```
+
+## Type 209
+
+Argentina was one of the earliest adopter of the prolific Type 209 export submarine from Germany. These were of the Type 209/1200 version.
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Type 209",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Type 209",c("Version","Boats","Year","Torpedo_text")])
+```
+
+![](https://www.shipbucket.com/files/real/AR/Type%20209/1200%20Salta/none/10663_S-31Salta_20240204163459.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Type 209")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(2/4+1)}
+class_sub_fcn(class="Type 209")
+```
+
+## Type TR1700
+
+A very heavy modification on the type 209, these submarines were known for being the fastest conventional submarine of their time, a record they maintain today.
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Type TR1700",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Type TR1700",c("Version","Boats","Year","Torpedo_text")])
+```
+
+![](https://www.shipbucket.com/files/real/AR/TR-1700%20Santa%20Cruz/none/1218_S-41SantaCruz_20230507143027.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Type TR1700")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(4/4+1)}
+class_sub_fcn(class="Type TR1700")
+```
+
+
+# Full summary
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(13/4+1)}
+individual_fcn(country="Argentina")
+```

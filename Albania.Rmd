@@ -5,81 +5,9 @@ date: "2024-11-18"
 ---
 
 ```{r, warning=F, echo=F, message=F}
-#Package loading
-
-library(data.table)
-library(ggplot2)
-library(patchwork)
-library(janitor) #to build markdown table (tabyl and adorn functions)
-library(knitr) #to make table in html format (kable function)
-library(dplyr) #to use the %<% sign
-library(ggalluvial)
-library(networkD3) # for flowchart
-library(tidyverse) #for flowcharts
-library(ggrepel) # for pie charts
-library(reshape2)
-library(directlabels)
-```
-
-```{r, warning=F, echo=F, message=F}
-#Data loading
-submarine0=readRDS("submarine.rds")
-specs0=readRDS("specifics.rds")
-weaps0=readRDS("weapons.rds")
-```
-
-```{r, warning=F, echo=F, message=F}
-submarine=submarine0[(submarine0$Operator=="Albania" | submarine0$Builder=="Albania" | submarine0$Design=="Albania") & submarine0$Fate!="cancelled" & submarine0$Fate!="ordered",]
-specs=specs0[(specs0$Operator=="Albania" | specs0$Design=="Albania"),]
-weaps=weaps0[(weaps0$Operator=="Albania" | weaps0$Design=="Albania"),]
-
-Type_list = unique(submarine$Type)
-Propulsion_list = unique(submarine$Propulsion)
-Builder_list = unique(submarine$Builder)
-Operator_list = unique(submarine$Operator)
-
-Type_list_prod = unique(submarine[submarine$Builder=="Albania",]$Type)
-Propulsion_prod = unique(submarine[submarine$Builder=="Albania",]$Propulsion)
-Type_list_serv = unique(submarine[submarine$Operator=="Albania",]$Type)
-Propulsion_serv = unique(submarine[submarine$Operator=="Albania",]$Propulsion)
-Builder_list = unique(submarine[submarine$Operator=="Albania",]$Builder)
-Operator_list = unique(submarine[submarine$Builder=="Albania",]$Operator)
-Class_list_prod = unique(submarine[submarine$Builder=="Albania",]$Class)
-Class_list_prod1 = unique(submarine[submarine$Builder=="Albania" & submarine$Laid<="1920-01-01",]$Class)
-Class_list_prod2 = unique(submarine[submarine$Builder=="Albania" & submarine$Compl>="1920-01-01" & submarine$Laid<="1950-01-01",]$Class)
-Class_list_prod3 = unique(submarine[submarine$Builder=="Albania" & submarine$Compl>="1950-01-01",]$Class)
-Class_list_serv = unique(submarine[submarine$Operator=="Albania",]$Class)
-Class_list_serv1 = unique(submarine[submarine$Operator=="Albania" & submarine$Comm<="1920-01-01",]$Class)
-Class_list_serv2 = unique(submarine[submarine$Operator=="Albania" & submarine$Decomm>="1920-01-01" & submarine$Comm<="1950-01-01",]$Class)
-Class_list_serv3 = unique(submarine[submarine$Operator=="Albania" & submarine$Decomm>="1950-01-01",]$Class)
-
-Version_list_prod = unique(submarine[submarine$Builder=="Albania",]$Version)
-Version_list_prod1 = unique(submarine[submarine$Builder=="Albania" & submarine$Laid<="1920-01-01",]$Version)
-Version_list_prod2 = unique(submarine[submarine$Builder=="Albania" & submarine$Compl>="1920-01-01" & submarine$Laid<="1950-01-01",]$Version)
-Version_list_prod3 = unique(submarine[submarine$Builder=="Albania" & submarine$Compl>="1950-01-01",]$Version)
-Version_list_serv = unique(submarine[submarine$Operator=="Albania",]$Version)
-Version_list_serv1 = unique(submarine[submarine$Operator=="Albania" & submarine$Comm<="1920-01-01",]$Version)
-Version_list_serv2 = unique(submarine[submarine$Operator=="Albania" & submarine$Decomm>="1920-01-01" & submarine$Comm<="1950-01-01",]$Version)
-Version_list_serv3 = unique(submarine[submarine$Operator=="Albania" & submarine$Decomm>="1950-01-01",]$Version)
-
-Batch_list_prod = unique(submarine[submarine$Builder=="Albania",]$Batch)
-Batch_list_prod1 = unique(submarine[submarine$Builder=="Albania" & submarine$Laid<="1920-01-01",]$Batch)
-Batch_list_prod2 = unique(submarine[submarine$Builder=="Albania" & submarine$Compl>="1920-01-01" & submarine$Laid<="1950-01-01",]$Batch)
-Batch_list_prod3 = unique(submarine[submarine$Builder=="Albania" & submarine$Compl>="1950-01-01",]$Batch)
-Batch_list_serv = unique(submarine[submarine$Operator=="Albania",]$Batch)
-Batch_list_serv1 = unique(submarine[submarine$Operator=="Albania" & submarine$Comm<="1920-01-01",]$Batch)
-Batch_list_serv2 = unique(submarine[submarine$Operator=="Albania" & submarine$Decomm>="1920-01-01" & submarine$Comm<="1950-01-01",]$Batch)
-Batch_list_serv3 = unique(submarine[submarine$Operator=="Albania" & submarine$Decomm>="1950-01-01",]$Batch)
-
-weaps$Torpedo=paste0(weaps$Tubes,"x",weaps$Torp_type," (",weaps$Torpedoes," torp or ",weaps$Tube_mines, " mines)")
-
-specs$Total=specs$Number + specs$Incomplete
-specs$Submarines=paste0(specs$Batch,", ",specs$Boats,", ",specs$Year)
-weaps$Submarines=paste0(weaps$Batch,", ",weaps$Boats,", ",weaps$Year)
-specs$Displacement_t=paste0(specs$Disp_full_surf_t,"/", specs$Disp_full_sub_t)
-specs$Power_HP=paste0(specs$Power_surf_HP,"/", specs$Power_sub_HP)
-specs$Speed_kts=paste0(specs$Speed_surf_kts,"/", specs$Speed_sub_kts)
-specs$Range_nm=paste0(specs$Range_surf_nm,"/", specs$Range_sub_nm)
+source("Functions.R")
+management_fcn(country="Albania")
+country="Albania"
 ```
 
 Albania is a Small Mediterranean country in Southern Europe with 2.8 million inhabitants. Occupied by Italy during World War 2 it fell under Soviet influence after liberation. It was a founding member of the Warsaw pact, being a member from 1955. However, following a split with the Soviet Union it withheld support from the pact in 1961 and withdrew fully in 1968. It remained a single-party communist state however, but with closer ties to China until the end of the cold war.It has since democratized, and come into closer contact with Western powers. Albania joined NATO in 2009, and is a candidate for EU accession.
@@ -91,300 +19,31 @@ As a whole, Albania has operated a total of 4 submarines, all of Soviet origin a
 # Submarines operated by Albania
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
-g21=ggplot(submarine[submarine$Status!="modernized" & submarine$Fate!="incomplete" & submarine$Operator=="Albania",], aes(Comm.y)) + geom_bar(col="black", aes(fill=Status)) + scale_fill_manual(values=c(
-     "new"="blue",
-     "resumed"="lightblue3",
-     "second-hand"="green3")) + ggtitle("operated submarine commissionings") + xlab("year") + ylab("number of submarines") + theme(legend.position="bottom")
-
-g22=ggplot(submarine[submarine$Fate!="modernized" & submarine$Operator=="Albania",], aes(Stricken.y)) + geom_bar(col="black", aes(fill=Fate)) + scale_fill_manual(values=c(
-     "lost"="red",
-     "total loss"="red",
-     "scuttled"="purple",
-     "transferred"="forestgreen",
-     "transferred incomplete"="green3",
-     "captured"="brown",
-     "captured incomplete"="brown3",
-     "surrendered"="lightblue",
-     "transferred incomplete"="lightgreen",
-     "retired"="lightcyan",
-     "hulked"="lightcyan",
-     "museum"="lightcyan",
-     "incomplete"="lemonchiffon2",
-     "cancelled"="lemonchiffon",
-     "active"="darkblue",
-     "reserve"="blue",
-     "building"="goldenrod1",
-     "ordered"="lightgrey")) + ggtitle("operated submarine fates") + xlab("year") + ylab("number of submarines") + theme(legend.position="bottom")
-(g21+g22)
-```
-
-```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
-Timeline_op=data.frame(day=seq(as.Date(min(submarine$Laid)-30), as.Date("2024-06-01"), by="month"))
-Timeline_op$Incomplete=NA
-Timeline_op$Retired=NA
-Timeline_op$Ex_Captured=NA
-Timeline_op$Captured=NA
-Timeline_op$Ex_Transferred=NA
-Timeline_op$Transferred=NA
-Timeline_op$Scuttled=NA
-Timeline_op$Lost=NA
-Timeline_op$Reserve=NA
-Timeline_op$Service=NA
-Timeline_op$Transit=NA
-Timeline_op$Construction=NA
-
-for (i in 1:nrow(Timeline_op)) {
-  Timeline_op$Incomplete[i]=sum(submarine[(submarine$Stricken<=Timeline_op$day[i] & submarine$Fate=="incomplete" & submarine$Operator=="Albania"),]$value)
-  Timeline_op$Retired[i]=sum(submarine[(submarine$Stricken<=Timeline_op$day[i] & submarine$Fate%in%c("hulked","museum","retired","surrendered") & submarine$Operator=="Albania"),]$value)
-  Timeline_op$Captured[i]=sum(submarine[(submarine$Stricken<=Timeline_op$day[i] & submarine$Foreign>Timeline_op$day[i] & submarine$Fate%in%c("captured","captured incomplete") & submarine$Operator=="Albania"),]$value)
-  Timeline_op$Ex_Captured[i]=sum(submarine[(submarine$Foreign<=Timeline_op$day[i] & submarine$Fate%in%c("captured","captured incomplete") & submarine$Operator=="Albania"),]$value)
-  Timeline_op$Transferred[i]=sum(submarine[(submarine$Stricken<=Timeline_op$day[i] & submarine$Foreign>Timeline_op$day[i] & submarine$Fate%in%c("transferred","transferred incomplete") & submarine$Operator=="Albania"),]$value)
-  Timeline_op$Ex_Transferred[i]=sum(submarine[(submarine$Foreign<=Timeline_op$day[i] & submarine$Fate%in%c("transferred","transferred incomplete") & submarine$Operator=="Albania"),]$value)
-  Timeline_op$Scuttled[i]=sum(submarine[(submarine$Stricken<=Timeline_op$day[i] & submarine$Fate=="scuttled" & submarine$Operator=="Albania"),]$value)
-  Timeline_op$Lost[i]=sum(submarine[(submarine$Stricken<=Timeline_op$day[i] & submarine$Fate%in%c("lost","total loss") & submarine$Operator=="Albania"),]$value)
-  Timeline_op$Reserve[i]=sum(submarine[(submarine$Decomm<=Timeline_op$day[i] & submarine$Stricken>Timeline_op$day[i] & submarine$Operator=="Albania"),]$value)
-  Timeline_op$Service[i]=sum(submarine[(submarine$Comm<=Timeline_op$day[i] & submarine$Decomm>Timeline_op$day[i] & submarine$Operator=="Albania"),]$value)
-  Timeline_op$Transit[i]=sum(submarine[(submarine$Compl<=Timeline_op$day[i] & submarine$Comm>Timeline_op$day[i] & submarine$Status=="new" & submarine$Operator=="Albania"),]$value)
-  Timeline_op$Construction[i]=sum(submarine[(submarine$Laid<=Timeline_op$day[i] & submarine$Compl>Timeline_op$day[i] & submarine$Status=="new" & submarine$Operator=="Albania"),]$value)
-}
-
-Timeline_op2=melt(Timeline_op, id.vars=c("day"),variable.name = "Status")
-
-g24=ggplot(Timeline_op2, aes(day,value)) + geom_area(aes(fill=Status), col="black") + scale_fill_manual(values=c(
-     "Incomplete"="lemonchiffon",
-     "Retired"="lightgrey",
-     "Transferred"="forestgreen",
-     "Ex_Transferred"="lightgreen",
-     "Captured"="brown",
-     "Ex_Captured"="lightsalmon",
-     "Scuttled"="purple",
-     "Lost"="red",
-     "Reserve"="lightblue",
-     "Service"="darkblue",
-     "Transit"="lightblue",
-     "Construction"="goldenrod1")) + ggtitle("Albanian operated submarines") + xlab("date") + ylab("number of submarines") + theme(legend.position="bottom")
-
-
-print(g24)
+summary_fcn(country="Albania")
 ```
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
-Timeline_wep=data.frame(day=seq(as.Date(min(submarine$Laid)-30), as.Date(max(submarine$Stricken)+30), by="month"))
-Timeline_wep$Mine=NA
-Timeline_wep$SLBM=NA
-Timeline_wep$VLS=NA
-Timeline_wep$Torpedoes=NA
-Timeline_wep$Torpedo_tubes=NA
-
-
-for (i in 1:nrow(Timeline_wep)) {
-  Timeline_wep$Service[i]=sum(submarine[(submarine$Comm<=Timeline_wep$day[i] & submarine$Stricken>Timeline_wep$day[i] & submarine$Operator=="Albania"),]$value)
-  Timeline_wep$Torpedo_tubes[i]=sum(submarine[(submarine$Operator=="Albania" & submarine$Comm<=Timeline_wep$day[i] & submarine$Stricken>Timeline_wep$day[i]),]$Tube)
-  Timeline_wep$Torpedoes[i]=sum(submarine[(submarine$Operator=="Albania" & submarine$Comm<=Timeline_wep$day[i] & submarine$Stricken>Timeline_wep$day[i]),]$Torpedo)
-  Timeline_wep$VLS[i]=sum(submarine[(submarine$Operator=="Albania" & submarine$Comm<=Timeline_wep$day[i] & submarine$Stricken>Timeline_wep$day[i]),]$VLS)
-  Timeline_wep$SLBM[i]=sum(submarine[(submarine$Operator=="Albania" & submarine$Comm<=Timeline_wep$day[i] & submarine$Stricken>Timeline_wep$day[i]),]$SLBM)
-  Timeline_wep$Mine[i]=sum(submarine[(submarine$Operator=="Albania" & submarine$Comm<=Timeline_wep$day[i] & submarine$Stricken>Timeline_wep$day[i]),]$mine_dedicated)
-  }
-
-Timeline_wep2=melt(Timeline_wep[,c(1:6)], id.vars=c("day"),variable.name = "Weapons")
-
-g1=ggplot(Timeline_wep, aes(day,Service)) + geom_area(fill="darkblue", col="black") + ggtitle("Number of submarines in service") + xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank())
-g2=ggplot(Timeline_wep2, aes(day,value)) + geom_area(aes(fill=Weapons), col="black") + scale_fill_manual(values=c(
-     "Mine"="brown",
-     "SLBM"="orange",
-     "VLS"="forestgreen",
-     "Torpedoes"="blue",
-     "Torpedo_tubes"="darkblue")) + ggtitle("Weapons carried in service") + xlab("date") + ylab("number of weapons") + theme(legend.position="bottom")
-
-print(g1/g2)
+weapons_fcn(country="Albania")
 ```
 
 # Individual submarines by class
-
-```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=9}
-class_count_fcn=function(class) {
-submarine_class=submarine[submarine$Class==class,]
-
-Boat_Class = data.frame(month = seq(as.Date(min(submarine_class$Laid)-30), as.Date(max(submarine_class$Stricken)+30), by="month"))
-Boat_Class$Construction_boat = NA
-Boat_Class$Service_boat = NA
-
-builder_list=unique(submarine_class$Builder)
-operator_list=unique(submarine_class$Operator)
-
-for (i in 1:length(builder_list)) {
-  df=Boat_Class
-  df$Builder=builder_list[i]
-  for (j in 1:nrow(Boat_Class)) {
-    df$Construction_boat[j]=sum(submarine_class[(submarine_class$Builder==builder_list[i] & submarine_class$Laid<=Boat_Class$month[j] & submarine_class$Compl>Boat_Class$month[j] & submarine_class$Status%in%c("new","resumed")),]$value)
-  }
-  if(i==1) {
-    Boat_Class_prod=df
-  } else if (i>1) {
-    Boat_Class_prod=rbind(Boat_Class_prod,df)
-  }
-}
-
-for (i in 1:length(operator_list)) {
-  df=Boat_Class
-  df$Operator=operator_list[i]
-  for (j in 1:nrow(Boat_Class)) {
-    df$Service_boat[j]=sum(submarine_class[(submarine_class$Operator==operator_list[i] & submarine_class$Comm<=Boat_Class$month[j] & submarine_class$Stricken>Boat_Class$month[j]),]$value)
-  }
-  if(i==1) {
-    Boat_Class_serv=df
-  } else if (i>1) {
-    Boat_Class_serv=rbind(Boat_Class_serv,df)
-  }
-}
-
-g13=ggplot(Boat_Class_prod, aes(month,Construction_boat)) + geom_area(aes(fill=Builder), col="black") + ggtitle("built submarine_class_classs under construction by Builder") + 
-  xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
-g14=ggplot(Boat_Class_serv, aes(month,Service_boat)) + geom_area(aes(fill=Operator), col="black") + ggtitle("built submarine_class_classs in service by Builder") + 
-  xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
-
-print(g13+g14)
-}
-```
-
-```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=9}
-class_batch_fcn=function(class) {
-submarine_class=submarine[submarine$Class==class,]
-
-Boat_Class = data.frame(month = seq(as.Date(min(submarine_class$Laid)-30), as.Date(max(submarine_class$Stricken)+30), by="month"))
-Boat_Class$Construction_boat = NA
-Boat_Class$Service_boat = NA
-
-batch_list=unique(submarine_class$Batch)
-
-for (i in 1:length(batch_list)) {
-  df=Boat_Class
-  df$Batch=batch_list[i]
-  for (j in 1:nrow(Boat_Class)) {
-    df$Construction_boat[j]=sum(submarine_class[(submarine_class$Batch==batch_list[i] & submarine_class$Laid<=Boat_Class$month[j] & submarine_class$Compl>Boat_Class$month[j] & submarine_class$Status%in%c("new","resumed")),]$value)
-    df$Service_boat[j]=sum(submarine_class[(submarine_class$Batch==batch_list[i] & submarine_class$Comm<=Boat_Class$month[j] & submarine_class$Stricken>Boat_Class$month[j]),]$value)
-  }
-  if(i==1) {
-    Boat_Class_batch=df
-  } else if (i>1) {
-    Boat_Class_batch=rbind(Boat_Class_batch,df)
-  }
-}
-
-g17=ggplot(Boat_Class_batch, aes(month,Construction_boat)) + geom_area(aes(fill=Batch), col="black") + ggtitle("built submarine_class_classs under construction by Version") +
-  xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
-g18=ggplot(Boat_Class_batch, aes(month,Service_boat)) + geom_area(aes(fill=Batch), col="black") + ggtitle("built submarine_class_classs in service by Version") +
-  xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
-print(g17+g18)
-}
-```
-
-```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=9}
-class_serv_fcn=function(class) {
-submarine_class=submarine[submarine$Class==class,]
-
-Timeline=data.frame(day=seq(as.Date(min(submarine_class$Laid)-30), as.Date("2024-06-01"), by="month"))
-Timeline$Incomplete=NA
-Timeline$Retired=NA
-Timeline$Ex_Captured=NA
-Timeline$Captured=NA
-Timeline$Ex_Transferred=NA
-Timeline$Transferred=NA
-Timeline$Scuttled=NA
-Timeline$Lost=NA
-Timeline$Reserve=NA
-Timeline$Service=NA
-Timeline$Transit=NA
-Timeline$Construction=NA
-
-for (i in 1:nrow(Timeline)) {
-  Timeline$Construction[i]=sum(submarine_class[(submarine_class$Laid<=Timeline$day[i] & submarine_class$Compl>Timeline$day[i] & submarine_class$Status=="new"),]$value)
-  Timeline$Transit[i]=sum(submarine_class[(submarine_class$Compl<=Timeline$day[i] & submarine_class$Comm>Timeline$day[i] & submarine_class$Status=="new"),]$value)
-  Timeline$Service[i]=sum(submarine_class[(submarine_class$Comm<=Timeline$day[i] & submarine_class$Decomm>Timeline$day[i]),]$value)
-  Timeline$Reserve[i]=sum(submarine_class[(submarine_class$Decomm<=Timeline$day[i] & submarine_class$Stricken>Timeline$day[i]),]$value)
-  Timeline$Lost[i]=sum(submarine_class[(submarine_class$Stricken<=Timeline$day[i] & submarine_class$Fate%in%c("lost","total loss")),]$value)
-  Timeline$Scuttled[i]=sum(submarine_class[(submarine_class$Stricken<=Timeline$day[i] & submarine_class$Fate=="scuttled"),]$value)
-  Timeline$Transferred[i]=sum(submarine_class[(submarine_class$Stricken<=Timeline$day[i] & submarine_class$Foreign>Timeline$day[i] & submarine_class$Fate%in%c("transferred","transferred incomplete")),]$value)
-  Timeline$Ex_Transferred[i]=sum(submarine_class[(submarine_class$Foreign<=Timeline$day[i] & submarine_class$Fate%in%c("transferred","transferred incomplete")),]$value)
-  Timeline$Captured[i]=sum(submarine_class[(submarine_class$Stricken<=Timeline$day[i] & submarine_class$Foreign>Timeline$day[i] & submarine_class$Fate%in%c("captured","captured incomplete")),]$value)
-  Timeline$Ex_Captured[i]=sum(submarine_class[(submarine_class$Foreign<=Timeline$day[i] & submarine_class$Fate%in%c("captured","captured incomplete")),]$value)
-  Timeline$Incomplete[i]=sum(submarine_class[(submarine_class$Stricken<=Timeline$day[i] & submarine_class$Fate=="incomplete"),]$value)
-  Timeline$Retired[i]=sum(submarine_class[(submarine_class$Stricken<=Timeline$day[i] & submarine_class$Fate%in%c("hulked","museum","retired","surrendered")),]$value)
-}
-
-Timeline2=melt(Timeline, id.vars=c("day"),variable.name = "Status")
-
-g23=ggplot(Timeline2, aes(day,value)) + geom_area(aes(fill=Status), col="black") + scale_fill_manual(values=c(
-     "Incomplete"="lemonchiffon",
-     "Retired"="lightgrey",
-     "Transferred"="forestgreen",
-     "Ex_Transferred"="lightgreen",
-     "Captured"="brown",
-     "Ex_Captured"="lightsalmon",
-     "Scuttled"="purple",
-     "Lost"="red",
-     "Reserve"="lightblue",
-     "Service"="darkblue",
-     "Transit"="lightblue",
-     "Construction"="goldenrod1")) + ggtitle(paste(class)) + xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
-
-print(g23)
-}
-```
-
-```{r, warning=F, echo=F, message=F}
-class_fcn=function(class) {
-print(ggplot(submarine[submarine$Class==class & submarine$Operator=="Albania",], aes(x=as.factor(Submarine), ymin=Laid, ymax=Compl)) +
-        geom_linerange(col="goldenrod1", size=6) +
-        geom_linerange(aes(ymin=Compl, ymax=Comm), col="lightgreen", size=6) + 
-        geom_linerange(aes(ymin=Comm, ymax=Decomm), col="royalblue", size=6) + 
-        geom_linerange(aes(ymin=Decomm, ymax=Stricken), col="lightblue", size=6) + 
-        geom_linerange(aes(ymin=Stricken, ymax=Sold), col="gainsboro", size=6) + 
-        geom_linerange(aes(ymin=Sold, ymax=Foreign), col="lightgreen", size=6) + 
-        geom_point(aes(y=Stricken, col=Fate), size=4) +
-        geom_text(aes(label=paste0(Fate," ",Receiver2),y=Stricken, col=Fate), size=4,hjust=-0.05) + scale_color_manual(values=c(
-          "active"="darkblue",
-          "building"="goldenrod1",
-          "captured"="brown",
-          "captured incomplete"="brown",
-          "hulked"="black",
-          "incomplete"="goldenrod1",
-          "lost"="red",
-          "modernized"="goldenrod1",
-          "museum"="black",
-          "reserve"="lightblue",
-          "retired"="black",
-          "scuttled"="purple",
-          "surrendered"="brown",
-          "total loss"="red",
-          "transferred"="forestgreen",
-          "transferred incomplete"="forestgreen")) +
-        geom_text(aes(label=Version, y=min(submarine[submarine$Class==class & submarine$Operator=="Albania",]$Order, na.rm=T)), size=3,hjust=-0.05) +
-        geom_hline(yintercept=as.Date("1914-07-01"), linetype="dashed", color = "forestgreen", size=1.5) +
-        geom_hline(yintercept=as.Date("1918-11-01"), linetype="dashed", color = "forestgreen", size=1.5) +
-        geom_hline(yintercept=as.Date("1939-09-01"), linetype="dashed", color = "forestgreen", size=1.5) +
-        geom_hline(yintercept=as.Date("1945-09-01"), linetype="dashed", color = "forestgreen", size=1.5) +
-        scale_x_discrete(limits = rev(levels(as.factor(submarine[submarine$Class==class & submarine$Operator=="Albania",]$Submarine)))) +
-        coord_flip() + xlab("date") + ylab("submarine name") + theme(legend.position="none", axis.title.x = element_blank(), axis.title.y = element_blank()))
-}
-```
 
 ## Wiskey class (Project 613)
 
 Albania received four ex-Soviet project 613 boats before the split with the USSR. One retired soon after, whilst the rest soldiered on until the end of the cold war.
 
 ```{r, warning=F, echo=F, message=F}
-kable(specs[specs$Class=="Project 613",c("Version","Boats","Number","Displacement_t","Propulsion","Power_HP","Fuel_t","Speed_kts","Range_nm","Depth_m")])
+kable(specs[specs$Class=="Project 613",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
 kable(weaps[weaps$Class=="Project 613",c("Version","Boats","Year","Torpedo_text")])
 ```
 
 ![](https://www.shipbucket.com/files/real/AL/Project%20613%20(Whiskey)/none/9156_514_20230119202246.png)
 
-```{r, warning=F, echo=F, message=F, fig.width=8, fig.height=3}
+```{r, warning=F, echo=F, message=F, fig.width=8, fig.height=4}
 class_serv_fcn(class="Project 613")
 ```
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(4/4)+1}
-class_fcn(class="Project 613")
+class_sub_fcn(class="Project 613")
 ```
 
