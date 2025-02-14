@@ -13,9 +13,9 @@ left:
       - text: "Australia"
         href: ./Australia.html
       - text: "Bangladesh"
-        href: ./Australia.html
+        href: ./Bangladesh.html
       - text: "Brazil"
-        href: ./Australia.html
+        href: ./Brazil.html
   - text: "World war 2"
     menu:
       - text: "Summary"

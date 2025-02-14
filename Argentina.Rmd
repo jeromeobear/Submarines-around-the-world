@@ -6,8 +6,8 @@ date: "2024-07-12"
 
 ```{r, warning=F, echo=F, message=F}
 source("Functions.R")
-management_fcn(country="Argentina")
 country="Argentina"
+management_fcn()
 ```
 
 Argentina is a South American country of 46,1 million people, with a long coastline along the Southern Atlantic Ocean. Furthermore it shares control of the strategic cape of Good Hope with neighboring Chile. It Officially declared independence from Spain in 1816, and has at times one of the most powerful navies regionally. Once a wealthy country, the Argentina has gone through severe financial downturns in the later half of the 20th and early 21st centuries, which has impacted it's navy.
@@ -19,16 +19,16 @@ In all Argentina has almost nearly continuously submarines operated since 1933, 
 # Submarines operated by Argentina
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
-summary_fcn(country="Argentina")
+summary_fcn()
 ```
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
-weapons_fcn(country="Argentina")
+weapons_fcn()
 ```
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
-builder_fcn(country="Argentina")
-class_fcn(country="Argentina")
+builder_fcn()
+class_fcn()
 ```
 
 # Individual submarines by class
@@ -127,5 +127,5 @@ class_sub_fcn(class="Type TR1700")
 # Full summary
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(13/4+1)}
-individual_fcn(country="Argentina")
+individual_fcn()
 ```

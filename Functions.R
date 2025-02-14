@@ -70,6 +70,8 @@ management_fcn=function() {
   specs$Speed_kts=paste0(specs$Speed_surf_kts,"/", specs$Speed_sub_kts)
   specs$Range_nm=paste0(specs$Range_surf_nm,"/", specs$Range_sub_nm)
   
+
+  
 }
 
 summary_fcn=function() {
@@ -738,8 +740,10 @@ specs2_fcn=function() {
 
 individual_fcn=function() {
   submarine1=submarine[submarine$Operator==country,]
-  submarine1$Submarine=fct_reorder(submarine1$Submarine, submarine1$Rank)
-  print(ggplot(submarine1, aes(x=as.factor(Submarine), ymin=Laid, ymax=Launch)) +
+  submarine1$Submarine=as.factor(submarine1$Submarine)
+  submarine1$Rank2=as.numeric(as.factor(submarine1$Rank))
+  submarine1$Submarine=fct_reorder(submarine1$Submarine, submarine1$Rank2)
+  print(ggplot(submarine1, aes(x=Submarine, ymin=Laid, ymax=Launch)) +
           geom_linerange(col="goldenrod1", size=6) +
           geom_linerange(aes(ymin=Launch, ymax=Compl), col="goldenrod2", size=6) + 
           geom_linerange(aes(ymin=Compl, ymax=Comm), col="lightgreen", size=6) + 
@@ -775,8 +779,10 @@ individual_fcn=function() {
 
 individual_fcn2=function() {
   submarine2=submarine[submarine$Operator!=country,]
-  submarine2$Submarine2=fct_reorder(submarine2$Submarine2, submarine2$Rank)
-  print(ggplot(submarine2, aes(x=as.factor(Submarine2), ymin=Laid, ymax=Launch)) +
+  submarine2$Submarine2=as.factor(submarine2$Submarine2)
+  submarine2$Rank2=as.numeric(as.factor(submarine2$Rank))
+  submarine2$Submarine2=fct_reorder(submarine2$Submarine2, submarine2$Rank2)
+  print(ggplot(submarine2, aes(x=Submarine2, ymin=Laid, ymax=Launch)) +
           geom_linerange(col="goldenrod1", size=6) +
           geom_linerange(aes(ymin=Launch, ymax=Compl), col="goldenrod2", size=6) + 
           geom_linerange(aes(ymin=Compl, ymax=Comm), col="lightgreen", size=6) + 
@@ -937,8 +943,10 @@ class_serv_fcn=function(class) {
 
 class_sub_fcn=function(class) {
   submarine_class=submarine[submarine$Class%in%class,]
-  submarine_class$Submarine=fct_reorder(submarine_class$Submarine, submarine_class$Rank)
-  print(ggplot(submarine_class[submarine_class$Class==class & submarine_class$Operator==country,], aes(x=as.factor(Submarine), ymin=Laid, ymax=Launch)) +
+  submarine_class$Submarine=as.factor(submarine_class$Submarine)
+  submarine_class$Rank2=as.numeric(as.factor(submarine_class$Rank))
+  submarine_class$Submarine=fct_reorder(submarine_class$Submarine, submarine_class$Rank2)
+  print(ggplot(submarine_class[submarine_class$Class==class & submarine_class$Operator==country,], aes(x=Submarine, ymin=Laid, ymax=Launch)) +
           geom_linerange(col="goldenrod1", size=6) +
           geom_linerange(aes(ymin=Launch, ymax=Compl), col="goldenrod2", size=6) + 
           geom_linerange(aes(ymin=Compl, ymax=Comm), col="lightgreen", size=6) + 
@@ -963,19 +971,21 @@ class_sub_fcn=function(class) {
           geom_text(data=submarine_class[submarine_class$Fate%in%c("lost","total loss"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause," (",Loss," killed)"), y=Lost), col="red", size=3.5,hjust=-0.05) +
           geom_text(data=submarine_class[submarine_class$Fate%in%c("captured","captured incomplete","surrendered"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause), y=Lost), col="brown", size=3.5,hjust=-0.05) +
           geom_text(data=submarine_class[submarine_class$Fate%in%c("transferred","transferred incomplete"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause), y=Sold), col="forestgreen", size=3.5,hjust=-0.05) +
-          geom_text(aes(label=Version, y=min(submarine[submarine$Class==class & submarine$Operator==country,]$Order, na.rm=T)), size=3,hjust=-0.05) +
+          geom_text(aes(label=Version, y=min(submarine_class[submarine_class$Class==class & submarine_class$Operator==country,]$Order, na.rm=T)), size=3,hjust=-0.05) +
           geom_hline(yintercept=as.Date("1914-07-01"), linetype="dashed", color = "forestgreen", size=1.5) +
           geom_hline(yintercept=as.Date("1918-11-01"), linetype="dashed", color = "forestgreen", size=1.5) +
           geom_hline(yintercept=as.Date("1939-09-01"), linetype="dashed", color = "forestgreen", size=1.5) +
           geom_hline(yintercept=as.Date("1945-09-01"), linetype="dashed", color = "forestgreen", size=1.5) +
-          scale_x_discrete(limits = rev(levels(as.factor(submarine[submarine$Class==class & submarine$Operator==country,]$Submarine)))) +
+          scale_x_discrete(limits = rev(levels(as.factor(submarine_class[submarine_class$Class==class & submarine_class$Operator==country,]$Submarine)))) +
           coord_flip() + xlab("date") + ylab("submarine name") + theme(legend.position="none", axis.title.x = element_blank(), axis.title.y = element_blank()))
 }
 
 class_sub_fcn2=function(class) {
   submarine_class=submarine[submarine$Class%in%class,]
-  submarine_class$Submarine=fct_reorder(submarine_class$Submarine, submarine_class$Rank)
-  print(ggplot(submarine_class[submarine_class$Class==class & submarine_class$Operator!=country,], aes(x=as.factor(Submarine), ymin=Laid, ymax=Launch)) +
+  submarine_class$Submarine2=as.factor(submarine_class$Submarine2)
+  submarine_class$Rank2=as.numeric(as.factor(submarine_class$Rank))
+  submarine_class$Submarine2=fct_reorder(submarine_class$Submarine2, submarine_class$Rank2)
+  print(ggplot(submarine_class[submarine_class$Class==class & submarine_class$Operator!=country,], aes(x=Submarine2, ymin=Laid, ymax=Launch)) +
           geom_linerange(col="goldenrod1", size=6) +
           geom_linerange(aes(ymin=Launch, ymax=Compl), col="goldenrod2", size=6) + 
           geom_linerange(aes(ymin=Compl, ymax=Comm), col="lightgreen", size=6) + 
@@ -1000,12 +1010,12 @@ class_sub_fcn2=function(class) {
           geom_text(data=submarine_class[submarine_class$Fate%in%c("lost","total loss"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause," (",Loss," killed)"), y=Lost), col="red", size=3.5,hjust=-0.05) +
           geom_text(data=submarine_class[submarine_class$Fate%in%c("captured","captured incomplete","surrendered"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause), y=Lost), col="brown", size=3.5,hjust=-0.05) +
           geom_text(data=submarine_class[submarine_class$Fate%in%c("transferred","transferred incomplete"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause), y=Sold), col="forestgreen", size=3.5,hjust=-0.05) +
-          geom_text(aes(label=Version, y=min(submarine[submarine$Class==class & submarine$Operator==country,]$Order, na.rm=T)), size=3,hjust=-0.05) +
+          geom_text(aes(label=Version, y=min(submarine_class[submarine_class$Class==class & submarine_class$Operator==country,]$Order, na.rm=T)), size=3,hjust=-0.05) +
           geom_hline(yintercept=as.Date("1914-07-01"), linetype="dashed", color = "forestgreen", size=1.5) +
           geom_hline(yintercept=as.Date("1918-11-01"), linetype="dashed", color = "forestgreen", size=1.5) +
           geom_hline(yintercept=as.Date("1939-09-01"), linetype="dashed", color = "forestgreen", size=1.5) +
           geom_hline(yintercept=as.Date("1945-09-01"), linetype="dashed", color = "forestgreen", size=1.5) +
-          scale_x_discrete(limits = rev(levels(as.factor(submarine[submarine$Class==class & submarine$Operator==country,]$Submarine)))) +
+          scale_x_discrete(limits = rev(levels(as.factor(submarine_class[submarine_class$Class==class & submarine_class$Operator==country,]$Submarine)))) +
           coord_flip() + xlab("date") + ylab("submarine name") + theme(legend.position="none", axis.title.x = element_blank(), axis.title.y = element_blank()))
 }
 
