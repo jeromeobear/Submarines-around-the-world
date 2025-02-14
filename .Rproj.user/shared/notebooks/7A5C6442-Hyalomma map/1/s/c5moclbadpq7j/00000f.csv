@@ -1,0 +1,4 @@
+"0","europe=world[world$NAME_EN%in%c(""Albania"",""Andorra"")]
+"
+"2","Error in `[.data.frame`(x, i) : undefined columns selected
+"
