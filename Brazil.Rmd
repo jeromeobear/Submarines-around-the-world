@@ -1,0 +1,195 @@
+---
+title: "Brazil"
+output: html_document
+date: "2025-02-14"
+---
+
+```{r, warning=F, echo=F, message=F}
+source("Functions.R")
+country="Brazil"
+management_fcn()
+```
+
+Brazil, and Suth-American country, is one of the largest in the world both in terms of population and size. It has a population of 212 million and has a long coast-line along the Southern Atlantic. It gained it's independance from Portugal in 1822 when it's navy was also founded. Within the timeframe of submarine operations, the Brazilian navy followed a similar development course to it's arch rival in Argentina. The early 1910s, saw a first modernization plan come to fruition with the delivery of 2 dreadnought battleships, 2 light cruisers, and 10 destroyers from the UK, as well as 3 submarines from Italy, although a 3rd battleship was sold incomplete to the Ottoman Empire as the financial situation turned bad. The 1920s and 1930s, saw a second push, with the delivery of 4 Italian submarines, and the order of 6 British destroyers which were taken over by the Royal Navy at the outbreak of WW2. As a result, Brazil launched into a domestic production program with help from the US, leading to the production of 9 destroyers in the 1940s. Beyond these destroyers, joining the Allies in WW2 brought more developments with the delivery of 8 US destroyer escorts and local production of 6 corvettes. As with Argentina, the 1950s through 1970s relied on second-hand British and US WW2 surplus material (1 aircraft carrier, 2 cruisers, 14 destroyers, 11 submarines). Finally, from the 1970s onwards Brazil has acquired mostly newly built equipment with British, German, and locally designed ships, although second-hand ships still compose parts of the fleet (notably for aircraft carriers and large amphibious ships). Today the surface navy is composed of 3 large amphibious ships (1 LPH, 1 LPD, 1 LST), 8 older frigates and corvettes to be replaced by 8 new MEKO A-100 frigates, and 10 larger gun armed patrol ships.
+
+Since the early 1910s, Brazil has continuously operated submarines. Three small submarines were acquired new from Italy in 1913, and replaced by four larger Italian submarines in the 1920s and 1930s. These soldiered on through WW2, and were replaced by 11 second-hand fleet submarines from the US in the 1950s to 1970s in three batches (2 in 1957, 2 in 1963, 7 in 1972-73). In the late 1970s, Brazil received 3 newly built Oberon class submarines from the UK, these then being replaced by 5 German Type 209 in the 1980s to 2000s. The first type 209 was built in Germany, however, subsequent boats were built in Brazil, marking the on end of Brazil's reliance on foreign built submarines. Since the early 2020s, 5 French designed Scorpene class submarines are replacing the Type 209. As of today, 2 Type 209 and 2 Scorpene are in service. Notably, the 5th Scorpene submarine will be nuclear powered. In all, Brazil has operated 28 submarines, of which 4 are in service today. Three more are currently under construction.
+
+# Submarines operated by Brazil
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+summary_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
+weapons_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=6}
+type_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+builder_fcn()
+class_fcn()
+```
+
+# Individual submarines by class
+
+## Specification summaries
+
+```{r, warning=F, echo=F, message=F, fig.width=13, fig.height=13/4+1}
+specs1_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=13, fig.height=13/2+2}
+specs2_fcn()
+```
+
+## Fiat-Laurenti type: Foca class
+
+Three coastal submarines acquired new from Italy.
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Fiat-Laurenti Coastal",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Fiat-Laurenti Coastal",c("Version","Boats","Year","Torpedo_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Fiat-Laurenti Coastal")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(3/4+1)}
+class_sub_fcn(class="Fiat-Laurenti Coastal")
+```
+
+## Humaita class
+
+A single large ocean going submarine, similar to the Italian Balilla class.
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Ocean Large",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Ocean Large",c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+![](https://www.shipbucket.com/files/real/BR/Humayt%C3%A1/none/196_Humayt%C3%A1_20230513174710.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Ocean Large")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(2/4+1)}
+class_sub_fcn(class="Ocean Large")
+```
+
+## Adua class (600t)
+
+Three sea-going 600t submarines of the Adua group. These boats were initially laid down for the Italian navy and sold whilst under construction to Brazil.
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="600t",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="600t",c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="600t")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(3/4+1)}
+class_sub_fcn(class="600t")
+```
+
+## Gato, Balao, and Tench classes
+
+Former US fleet submarines from WW2 delievered in the 1950s to 1970s
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class%in%c("SS-212 Gato","SS-285 Balao","SS-417 Tench"),c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class%in%c("SS-212 Gato","SS-285 Balao","SS-417 Tench"),c("Version","Boats","Year","Torpedo_text")])
+```
+
+![](https://www.shipbucket.com/files/real/BR/Balao/none/9247_S11RioGrandedoSul_20230428221748.png)
+![](https://www.shipbucket.com/files/real/BR/Balao/none/9246_S10Guanabara_20230428221739.png)
+![](https://www.shipbucket.com/files/real/BR/Balao/none/9251_S15Goias_20230428221753.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_batch_fcn(class=c("SS-212 Gato","SS-285 Balao","SS-417 Tench"))
+class_serv_fcn(class=c("SS-212 Gato","SS-285 Balao","SS-417 Tench"))
+```
+
+#### Gato submarines
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(2/4+1)}
+class_sub_fcn(class="SS-212 Gato")
+```
+
+#### Balao submarines
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(5/4+1)}
+class_sub_fcn(class="SS-285 Balao")
+```
+
+#### Tench submarines
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(4/4+1)}
+class_sub_fcn(class="SS-417 Tench")
+```
+
+## Oberon class
+
+Three new built Oberon class submarines from the UK. The last one in service was lost in a mooring accident whilst in reserve.
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="S-009 Oberon",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="S-009 Oberon",c("Version","Boats","Year","Torpedo_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="S-009 Oberon")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(3/4+1)}
+class_sub_fcn(class="S-009 Oberon")
+```
+
+## Type 209
+
+Submarines of the Type 209/1400. The first was built in Germany, but the remainder were built in Brazil. A sixth boat was cancelled in 2004.
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Type 209",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Type 209",c("Version","Boats","Year","Torpedo_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_batch_fcn(class="Type 209")
+class_serv_fcn(class="Type 209")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(6/4+1)}
+class_sub_fcn(class="Type 209")
+```
+
+## Scorpene class
+
+French designed Scorpene submarines, but built in Brazil. They will also introduce submarine carrierd missiles to Brazil. The fifth boat is nuclear.
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Scorpene",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Scorpene",c("Version","Boats","Year","Torpedo_text","Missiles")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_batch_fcn(class="Scorpene")
+class_serv_fcn(class="Scorpene")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(5/4+1)}
+class_sub_fcn(class="Scorpene")
+```
+
+
+# Full summary
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(32/4+1)}
+individual_fcn()
+```

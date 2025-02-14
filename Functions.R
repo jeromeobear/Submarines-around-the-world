@@ -1,6 +1,6 @@
 
 
-management_fcn=function(country) {
+management_fcn=function() {
   library(data.table)
   library(ggplot2)
   library(patchwork)
@@ -72,7 +72,7 @@ management_fcn=function(country) {
   
 }
 
-summary_fcn=function(country) {
+summary_fcn=function() {
   g1=ggplot(submarine[submarine$Status!="modernized" & submarine$Fate!="incomplete" & submarine$Operator==country,], aes(as.numeric(Comm.y))) + geom_bar(col="black", aes(fill=Status)) + scale_fill_manual(values=c(
     "new"="blue",
     "resumed"="lightblue3",
@@ -149,7 +149,7 @@ summary_fcn=function(country) {
   
 }
 
-weapons_fcn=function(country) {
+weapons_fcn=function() {
   Timeline_wep=data.frame(day=seq(as.Date(min(submarine$Laid, na.rm=T)-30), as.Date(max(submarine$Stricken)+30), by="month"))
   Timeline_wep$Mine=NA
   Timeline_wep$SLBM=NA
@@ -180,7 +180,7 @@ weapons_fcn=function(country) {
   print(g1/g2)
 }
 
-type_fcn=function(country) {
+type_fcn=function() {
   Boat_Type = data.frame(month = seq(as.Date(min(submarine$Laid, na.rm=T)-30), as.Date(max(submarine$Stricken)+30), by="month"))
   Boat_Type$Construction_boat = NA
   Boat_Type$Service_boat = NA
@@ -228,7 +228,7 @@ type_fcn=function(country) {
   print((g13+g14)/(g15+g16))
 }
 
-builder_fcn=function(country) {
+builder_fcn=function() {
   Boat_Builder = data.frame(month = seq(as.Date(min(submarine$Laid, na.rm=T)-30), as.Date(max(submarine$Stricken)+30), by="month"))
   Boat_Builder$Construction_boat = NA
   Boat_Builder$Service_boat = NA
@@ -252,7 +252,7 @@ builder_fcn=function(country) {
   print((g17+g18))
 }
 
-class_fcn=function(country) {
+class_fcn=function() {
   Boat_Class_serv = data.frame(month = seq(as.Date(min(submarine$Laid, na.rm=T)-30), as.Date(max(submarine$Stricken)+30), by="month"))
   Boat_Class_serv$Construction_boat = NA
   Boat_Class_serv$Service_boat = NA
@@ -276,7 +276,7 @@ class_fcn=function(country) {
   print((g15+g16))
 }
 
-big_summary_fcn=function(country){
+big_summary_fcn=function(){
   Boat_Class_serv = data.frame(month = seq(as.Date(min(submarine$Laid, na.rm=T)-30), as.Date("2025-01-01"), by="month"))
   Boat_Class_serv$Construction_boat = NA
   Boat_Class_serv$Service_boat = NA
@@ -323,6 +323,301 @@ big_summary_fcn=function(country){
     for (j in 1:nrow(Boat_Batch_serv)) {
       df$Construction_boat[j]=sum(submarine[(submarine$Batch==Batch_list_serv[i] & submarine$Laid<=Boat_Batch_serv$month[j] & submarine$Compl>Boat_Batch_serv$month[j] & submarine$Status%in%c("new","resumed") & submarine$Operator==country),]$value)
       df$Service_boat[j]=sum(submarine[(submarine$Batch==Batch_list_serv[i] & submarine$Comm<=Boat_Batch_serv$month[j] & submarine$Stricken>Boat_Batch_serv$month[j] & submarine$Operator==country),]$value)
+    }
+    if(i==1) {
+      Boat_Batch_serv_tot=df
+    } else if (i>1) {
+      Boat_Batch_serv_tot=rbind(Boat_Batch_serv_tot,df)
+    }
+  }
+  
+  
+  Boat_Class_serv_tot1=Boat_Class_serv_tot[Boat_Class_serv_tot$month<="1920-01-01" & Boat_Class_serv_tot$Class%in%Class_list_serv1,]
+  Boat_Version_serv_tot1=Boat_Version_serv_tot[Boat_Version_serv_tot$month<="1920-01-01" & Boat_Version_serv_tot$Version%in%Version_list_serv1,]
+  Boat_Batch_serv_tot1=Boat_Batch_serv_tot[Boat_Batch_serv_tot$month<="1920-01-01" & Boat_Batch_serv_tot$Batch%in%Batch_list_serv1,]
+  g14=ggplot(Boat_Class_serv_tot1, aes(month,Service_boat)) + geom_area(aes(fill=Class), col="black") + ggtitle("operated submarines in service by Class") + 
+    xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  g16=ggplot(Boat_Version_serv_tot1, aes(month,Service_boat)) + geom_area(aes(fill=Version), col="black") + ggtitle("operated submarines in service by Version") + 
+    xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  g18=ggplot(Boat_Batch_serv_tot1, aes(month,Service_boat)) + geom_area(aes(fill=Batch), col="black") + ggtitle("operated submarines in service by Batch") + 
+    xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  print(g14+g16+g18)
+  
+  Boat_Class_serv_tot2=Boat_Class_serv_tot[Boat_Class_serv_tot$month>="1920-01-01" & Boat_Class_serv_tot$month<="1950-01-01" & Boat_Class_serv_tot$Class%in%Class_list_serv2,]
+  Boat_Version_serv_tot2=Boat_Version_serv_tot[Boat_Version_serv_tot$month>="1920-01-01" & Boat_Version_serv_tot$month<="1950-01-01" & Boat_Version_serv_tot$Version%in%Version_list_serv2,]
+  Boat_Batch_serv_tot2=Boat_Batch_serv_tot[Boat_Batch_serv_tot$month>="1920-01-01" & Boat_Batch_serv_tot$month<="1950-01-01" & Boat_Batch_serv_tot$Batch%in%Batch_list_serv2,]
+  g14=ggplot(Boat_Class_serv_tot2, aes(month,Service_boat)) + geom_area(aes(fill=Class), col="black") + ggtitle("operated submarines in service by Class") + 
+    xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  g16=ggplot(Boat_Version_serv_tot2, aes(month,Service_boat)) + geom_area(aes(fill=Version), col="black") + ggtitle("operated submarines in service by Version") + 
+    xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  g18=ggplot(Boat_Batch_serv_tot2, aes(month,Service_boat)) + geom_area(aes(fill=Batch), col="black") + ggtitle("operated submarines in service by Batch") + 
+    xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  print(g14+g16+g18)
+  
+  Boat_Class_serv_tot3=Boat_Class_serv_tot[Boat_Class_serv_tot$month>="1950-01-01" & Boat_Class_serv_tot$Class%in%Class_list_serv3,]
+  Boat_Version_serv_tot3=Boat_Version_serv_tot[Boat_Version_serv_tot$month>="1950-01-01" & Boat_Version_serv_tot$Version%in%Version_list_serv3,]
+  Boat_Batch_serv_tot3=Boat_Batch_serv_tot[Boat_Batch_serv_tot$month>="1950-01-01" & Boat_Batch_serv_tot$Batch%in%Batch_list_serv3,]
+  g14=ggplot(Boat_Class_serv_tot3, aes(month,Service_boat)) + geom_area(aes(fill=Class), col="black") + ggtitle("operated submarines in service by Class") + 
+    xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  g16=ggplot(Boat_Version_serv_tot3, aes(month,Service_boat)) + geom_area(aes(fill=Version), col="black") + ggtitle("operated submarines in service by Version") + 
+    xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  g18=ggplot(Boat_Batch_serv_tot3, aes(month,Service_boat)) + geom_area(aes(fill=Batch), col="black") + ggtitle("operated submarines in service by Batch") + 
+    xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  print(g14+g16+g18)
+  
+}
+
+summary_fcn2=function() {
+  g1=ggplot(submarine[submarine$Status!="modernized" & submarine$Fate!="incomplete" & submarine$Operator!=country & submarine$Builder==country,], aes(as.numeric(Comm.y))) + geom_bar(col="black", aes(fill=Status)) + scale_fill_manual(values=c(
+    "new"="blue",
+    "resumed"="lightblue3",
+    "second-hand"="green3")) + ggtitle("Number of submarines commissioned by year") + xlab("year") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  
+  g2=ggplot(submarine[submarine$Fate!="modernized" & submarine$Operator!=country & submarine$Builder==country,], aes(as.numeric(Stricken.y))) + geom_bar(col="black", aes(fill=Fate)) + scale_fill_manual(values=c(
+    "lost"="red",
+    "total loss"="red",
+    "scuttled"="purple",
+    "transferred"="forestgreen",
+    "transferred incomplete"="green3",
+    "captured"="brown",
+    "captured incomplete"="brown3",
+    "surrendered"="lightblue",
+    "transferred incomplete"="lightgreen",
+    "retired"="lightcyan",
+    "hulked"="lightcyan",
+    "museum"="lightcyan",
+    "incomplete"="lemonchiffon2",
+    "cancelled"="lemonchiffon",
+    "active"="darkblue",
+    "reserve"="blue",
+    "building"="goldenrod1",
+    "ordered"="lightgrey")) + ggtitle("Fates of submarines by year") + xlab("year") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  print(g1+g2)
+  
+  Timeline_op=data.frame(day=seq(as.Date(min(submarine$Laid, na.rm=T)-30), as.Date("2025-01-01"), by="month"))
+  Timeline_op$Incomplete=NA
+  Timeline_op$Retired=NA
+  Timeline_op$Ex_Captured=NA
+  Timeline_op$Captured=NA
+  Timeline_op$Ex_Transferred=NA
+  Timeline_op$Transferred=NA
+  Timeline_op$Scuttled=NA
+  Timeline_op$Lost=NA
+  Timeline_op$Reserve=NA
+  Timeline_op$Service=NA
+  Timeline_op$Transit=NA
+  Timeline_op$Construction=NA
+  
+  for (i in 1:nrow(Timeline_op)) {
+    Timeline_op$Incomplete[i]=sum(submarine[(submarine$Stricken<=Timeline_op$day[i] & submarine$Fate=="incomplete" & submarine$Operator!=country & submarine$Builder==country),]$value)
+    Timeline_op$Retired[i]=sum(submarine[(submarine$Stricken<=Timeline_op$day[i] & submarine$Fate%in%c("hulked","museum","retired","surrendered") & submarine$Operator!=country & submarine$Builder==country),]$value)
+    Timeline_op$Captured[i]=sum(submarine[(submarine$Stricken<=Timeline_op$day[i] & submarine$Foreign>Timeline_op$day[i] & submarine$Fate%in%c("captured","captured incomplete") & submarine$Operator!=country & submarine$Builder==country),]$value)
+    Timeline_op$Ex_Captured[i]=sum(submarine[(submarine$Foreign<=Timeline_op$day[i] & submarine$Fate%in%c("captured","captured incomplete") & submarine$Operator!=country & submarine$Builder==country),]$value)
+    Timeline_op$Transferred[i]=sum(submarine[(submarine$Stricken<=Timeline_op$day[i] & submarine$Foreign>Timeline_op$day[i] & submarine$Fate%in%c("transferred","transferred incomplete") & submarine$Operator!=country & submarine$Builder==country),]$value)
+    Timeline_op$Ex_Transferred[i]=sum(submarine[(submarine$Foreign<=Timeline_op$day[i] & submarine$Fate%in%c("transferred","transferred incomplete") & submarine$Operator!=country & submarine$Builder==country),]$value)
+    Timeline_op$Scuttled[i]=sum(submarine[(submarine$Stricken<=Timeline_op$day[i] & submarine$Fate=="scuttled" & submarine$Operator!=country & submarine$Builder==country),]$value)
+    Timeline_op$Lost[i]=sum(submarine[(submarine$Stricken<=Timeline_op$day[i] & submarine$Fate%in%c("lost","total loss") & submarine$Operator!=country & submarine$Builder==country),]$value)
+    Timeline_op$Reserve[i]=sum(submarine[(submarine$Decomm<=Timeline_op$day[i] & submarine$Stricken>Timeline_op$day[i] & submarine$Operator!=country & submarine$Builder==country),]$value)
+    Timeline_op$Service[i]=sum(submarine[(submarine$Comm<=Timeline_op$day[i] & submarine$Decomm>Timeline_op$day[i] & submarine$Operator!=country & submarine$Builder==country),]$value)
+    Timeline_op$Transit[i]=sum(submarine[(submarine$Compl<=Timeline_op$day[i] & submarine$Comm>Timeline_op$day[i] & submarine$Status=="new" & submarine$Operator!=country & submarine$Builder==country),]$value)
+    Timeline_op$Construction[i]=sum(submarine[(submarine$Laid<=Timeline_op$day[i] & submarine$Compl>Timeline_op$day[i] & submarine$Status=="new" & submarine$Operator!=country & submarine$Builder==country),]$value)
+  }
+  
+  Timeline_op2=melt(Timeline_op, id.vars=c("day"),variable.name = "Status")
+  
+  g3=ggplot(Timeline_op2, aes(day,value)) + geom_area(aes(fill=Status), col="black") + scale_fill_manual(values=c(
+    "Incomplete"="lemonchiffon",
+    "Retired"="lightgrey",
+    "Transferred"="forestgreen",
+    "Ex_Transferred"="lightgreen",
+    "Captured"="brown",
+    "Ex_Captured"="lightsalmon",
+    "Scuttled"="purple",
+    "Lost"="red",
+    "Reserve"="lightblue",
+    "Service"="darkblue",
+    "Transit"="lightblue",
+    "Construction"="goldenrod1")) + ggtitle("Cumulative submarine history") + xlab("date") + ylab("number of submarines") + theme(legend.position="bottom")
+  
+  
+  print(g3)
+  
+}
+
+weapons_fcn2=function() {
+  Timeline_wep=data.frame(day=seq(as.Date(min(submarine$Laid, na.rm=T)-30), as.Date(max(submarine$Stricken)+30), by="month"))
+  Timeline_wep$Mine=NA
+  Timeline_wep$SLBM=NA
+  Timeline_wep$VLS=NA
+  Timeline_wep$Torpedoes=NA
+  Timeline_wep$Torpedo_tubes=NA
+  
+  
+  for (i in 1:nrow(Timeline_wep)) {
+    Timeline_wep$Service[i]=sum(submarine[(submarine$Comm<=Timeline_wep$day[i] & submarine$Stricken>Timeline_wep$day[i] & submarine$Operator!=country & submarine$Builder==country),]$value)
+    Timeline_wep$Torpedo_tubes[i]=sum(submarine[(submarine$Operator!=country & submarine$Builder==country & submarine$Comm<=Timeline_wep$day[i] & submarine$Stricken>Timeline_wep$day[i]),]$Tube)
+    Timeline_wep$Torpedoes[i]=sum(submarine[(submarine$Operator!=country & submarine$Builder==country & submarine$Comm<=Timeline_wep$day[i] & submarine$Stricken>Timeline_wep$day[i]),]$Torpedo)
+    Timeline_wep$VLS[i]=sum(submarine[(submarine$Operator!=country & submarine$Builder==country & submarine$Comm<=Timeline_wep$day[i] & submarine$Stricken>Timeline_wep$day[i]),]$VLS)
+    Timeline_wep$SLBM[i]=sum(submarine[(submarine$Operator!=country & submarine$Builder==country & submarine$Comm<=Timeline_wep$day[i] & submarine$Stricken>Timeline_wep$day[i]),]$SLBM)
+    Timeline_wep$Mine[i]=sum(submarine[(submarine$Operator!=country & submarine$Builder==country & submarine$Comm<=Timeline_wep$day[i] & submarine$Stricken>Timeline_wep$day[i]),]$mine_dedicated)
+  }
+  
+  Timeline_wep2=melt(Timeline_wep[,c(1:6)], id.vars=c("day"),variable.name = "Weapons")
+  
+  g1=ggplot(Timeline_wep, aes(day,Service)) + geom_area(fill="darkblue", col="black") + ggtitle("Number of submarines in service") + xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank())
+  g2=ggplot(Timeline_wep2, aes(day,value)) + geom_area(aes(fill=Weapons), col="black") + scale_fill_manual(values=c(
+    "Mine"="brown",
+    "SLBM"="orange",
+    "VLS"="forestgreen",
+    "Torpedoes"="blue",
+    "Torpedo_tubes"="darkblue")) + ggtitle("Weapons carried in service") + xlab("date") + ylab("Number of weapons in service") + theme(legend.position="bottom")
+  
+  print(g1/g2)
+}
+
+type_fcn2=function() {
+  Boat_Type = data.frame(month = seq(as.Date(min(submarine$Laid, na.rm=T)-30), as.Date(max(submarine$Stricken)+30), by="month"))
+  Boat_Type$Construction_boat = NA
+  Boat_Type$Service_boat = NA
+  
+  for (i in 1:length(Type_list)) {
+    df=Boat_Type
+    df$Type=Type_list[i]
+    for (j in 1:nrow(Boat_Type)) {
+      df$Construction_boat[j]=sum(submarine[(submarine$Type==Type_list[i] & submarine$Laid<=Boat_Type$month[j] & submarine$Compl>Boat_Type$month[j] & submarine$Status%in%c("new","resumed") & submarine$Operator!=country & submarine$Builder==country),]$value)
+      df$Service_boat[j]=sum(submarine[(submarine$Type==Type_list[i] & submarine$Comm<=Boat_Type$month[j] & submarine$Stricken>Boat_Type$month[j] & submarine$Operator!=country & submarine$Builder==country),]$value)
+    }
+    if(i==1) {
+      Boat_Type_tot=df
+    } else if (i>1) {
+      Boat_Type_tot=rbind(Boat_Type_tot,df)
+    }
+  }
+  
+  Boat_Propulsion = data.frame(month = seq(as.Date(min(submarine$Laid, na.rm=T)-30), as.Date(max(submarine$Stricken)+30), by="month"))
+  Boat_Propulsion$Construction_boat = NA
+  Boat_Propulsion$Service_boat = NA
+  
+  for (i in 1:length(Propulsion_list)) {
+    df=Boat_Propulsion
+    df$Propulsion=Propulsion_list[i]
+    for (j in 1:nrow(Boat_Propulsion)) {
+      df$Construction_boat[j]=sum(submarine[(submarine$Propulsion==Propulsion_list[i] & submarine$Laid<=Boat_Propulsion$month[j] & submarine$Compl>Boat_Propulsion$month[j] & submarine$Status%in%c("new","resumed") & submarine$Operator!=country & submarine$Builder==country),]$value)
+      df$Service_boat[j]=sum(submarine[(submarine$Propulsion==Propulsion_list[i] & submarine$Comm<=Boat_Propulsion$month[j] & submarine$Stricken>Boat_Propulsion$month[j] & submarine$Operator!=country & submarine$Builder==country),]$value)
+    }
+    if(i==1) {
+      Boat_Propulsion_tot=df
+    } else if (i>1) {
+      Boat_Propulsion_tot=rbind(Boat_Propulsion_tot,df)
+    }
+  }
+  
+  g13=ggplot(Boat_Type_tot, aes(month,Construction_boat)) + geom_area(aes(fill=Type), col="black") + ggtitle("submarine numbers under construction by Type") + 
+    xlab("date") + ylab("number of submarines")+ theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  g14=ggplot(Boat_Type_tot, aes(month,Service_boat)) + geom_area(aes(fill=Type), col="black") + ggtitle("submarine numbers in service by Type") + 
+    xlab("date") + ylab("number of submarines")+ theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  g15=ggplot(Boat_Propulsion_tot, aes(month,Construction_boat)) + geom_area(aes(fill=Propulsion), col="black") + ggtitle("submarine numbers under construction by Propulsion") + 
+    xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  g16=ggplot(Boat_Propulsion_tot, aes(month,Service_boat)) + geom_area(aes(fill=Propulsion), col="black") + ggtitle("submarine numbers in service by Propulsion") + xlab("date") + 
+    ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  print((g13+g14)/(g15+g16))
+}
+
+operator_fcn=function() {
+  Boat_Operator = data.frame(month = seq(as.Date(min(submarine$Laid, na.rm=T)-30), as.Date(max(submarine$Stricken)+30), by="month"))
+  Boat_Operator$Construction_boat = NA
+  Boat_Operator$Service_boat = NA
+  
+  for (i in 1:length(Operator_list)) {
+    df=Boat_Operator
+    df$Operator=Operator_list[i]
+    for (j in 1:nrow(Boat_Operator)) {
+      df$Construction_boat[j]=sum(submarine[(submarine$Operator==Operator_list[i] & submarine$Laid<=Boat_Operator$month[j] & submarine$Compl>Boat_Operator$month[j] & submarine$Status%in%c("new","resumed") & submarine$Operator!=country & submarine$Builder==country),]$value)
+      df$Service_boat[j]=sum(submarine[(submarine$Operator==Operator_list[i] & submarine$Comm<=Boat_Operator$month[j] & submarine$Stricken>Boat_Operator$month[j] & submarine$Operator!=country & submarine$Builder==country),]$value)
+    }
+    if(i==1) {
+      Boat_Operator_tot=df
+    } else if (i>1) {
+      Boat_Operator_tot=rbind(Boat_Operator_tot,df)
+    }
+  }
+  
+  g17=ggplot(Boat_Operator_tot, aes(month,Construction_boat)) + geom_area(aes(fill=Operator), col="black") + ggtitle("Submarine numbers under construction by Operator") + xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  g18=ggplot(Boat_Operator_tot, aes(month,Service_boat)) + geom_area(aes(fill=Operator), col="black") + ggtitle("Submarine numbers in service by Operator") + xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  print((g17+g18))
+}
+
+class_fcn2=function() {
+  Boat_Class_serv = data.frame(month = seq(as.Date(min(submarine$Laid, na.rm=T)-30), as.Date(max(submarine$Stricken)+30), by="month"))
+  Boat_Class_serv$Construction_boat = NA
+  Boat_Class_serv$Service_boat = NA
+  
+  for (i in 1:length(Class_list_serv)) {
+    df=Boat_Class_serv
+    df$Class=Class_list_serv[i]
+    for (j in 1:nrow(Boat_Class_serv)) {
+      df$Construction_boat[j]=sum(submarine[(submarine$Class==Class_list_serv[i] & submarine$Laid<=Boat_Class_serv$month[j] & submarine$Compl>Boat_Class_serv$month[j] & submarine$Status%in%c("new","resumed") & submarine$Operator!=country & submarine$Builder==country),]$value)
+      df$Service_boat[j]=sum(submarine[(submarine$Class==Class_list_serv[i] & submarine$Comm<=Boat_Class_serv$month[j] & submarine$Stricken>Boat_Class_serv$month[j] & submarine$Operator!=country & submarine$Builder==country),]$value)
+    }
+    if(i==1) {
+      Boat_Class_serv_tot=df
+    } else if (i>1) {
+      Boat_Class_serv_tot=rbind(Boat_Class_serv_tot,df)
+    }
+  }
+  
+  g15=ggplot(Boat_Class_serv_tot, aes(month,Construction_boat)) + geom_area(aes(fill=Class), col="black") + ggtitle("Submarines under construction by Class") + xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  g16=ggplot(Boat_Class_serv_tot, aes(month,Service_boat)) + geom_area(aes(fill=Class), col="black") + ggtitle("Submarines in service by Class") + xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
+  print((g15+g16))
+}
+
+big_summary_fcn2=function(){
+  Boat_Class_serv = data.frame(month = seq(as.Date(min(submarine$Laid, na.rm=T)-30), as.Date("2025-01-01"), by="month"))
+  Boat_Class_serv$Construction_boat = NA
+  Boat_Class_serv$Service_boat = NA
+  
+  for (i in 1:length(Class_list_serv)) {
+    df=Boat_Class_serv
+    df$Class=Class_list_serv[i]
+    for (j in 1:nrow(Boat_Class_serv)) {
+      df$Construction_boat[j]=sum(submarine[(submarine$Class==Class_list_serv[i] & submarine$Laid<=Boat_Class_serv$month[j] & submarine$Compl>Boat_Class_serv$month[j] & submarine$Status%in%c("new","resumed") & submarine$Operator!=country & submarine$Builder==country),]$value)
+      df$Service_boat[j]=sum(submarine[(submarine$Class==Class_list_serv[i] & submarine$Comm<=Boat_Class_serv$month[j] & submarine$Stricken>Boat_Class_serv$month[j] & submarine$Operator!=country & submarine$Builder==country),]$value)
+    }
+    if(i==1) {
+      Boat_Class_serv_tot=df
+    } else if (i>1) {
+      Boat_Class_serv_tot=rbind(Boat_Class_serv_tot,df)
+    }
+  }
+  
+  Boat_Version_serv = data.frame(month = seq(as.Date(min(submarine$Laid, na.rm=T)-30), as.Date("2025-01-01"), by="month"))
+  Boat_Version_serv$Construction_boat = NA
+  Boat_Version_serv$Service_boat = NA
+  
+  for (i in 1:length(Version_list_serv)) {
+    df=Boat_Version_serv
+    df$Version=Version_list_serv[i]
+    for (j in 1:nrow(Boat_Version_serv)) {
+      df$Construction_boat[j]=sum(submarine[(submarine$Version==Version_list_serv[i] & submarine$Laid<=Boat_Version_serv$month[j] & submarine$Compl>Boat_Version_serv$month[j] & submarine$Status%in%c("new","resumed") & submarine$Operator!=country & submarine$Builder==country),]$value)
+      df$Service_boat[j]=sum(submarine[(submarine$Version==Version_list_serv[i] & submarine$Comm<=Boat_Version_serv$month[j] & submarine$Stricken>Boat_Version_serv$month[j] & submarine$Operator!=country & submarine$Builder==country),]$value)
+    }
+    if(i==1) {
+      Boat_Version_serv_tot=df
+    } else if (i>1) {
+      Boat_Version_serv_tot=rbind(Boat_Version_serv_tot,df)
+    }
+  }
+  
+  Boat_Batch_serv = data.frame(month = seq(as.Date(min(submarine$Laid, na.rm=T)-30), as.Date("2025-01-01"), by="month"))
+  Boat_Batch_serv$Construction_boat = NA
+  Boat_Batch_serv$Service_boat = NA
+  
+  for (i in 1:length(Batch_list_serv)) {
+    df=Boat_Batch_serv
+    df$Batch=Batch_list_serv[i]
+    for (j in 1:nrow(Boat_Batch_serv)) {
+      df$Construction_boat[j]=sum(submarine[(submarine$Batch==Batch_list_serv[i] & submarine$Laid<=Boat_Batch_serv$month[j] & submarine$Compl>Boat_Batch_serv$month[j] & submarine$Status%in%c("new","resumed") & submarine$Operator!=country & submarine$Builder==country),]$value)
+      df$Service_boat[j]=sum(submarine[(submarine$Batch==Batch_list_serv[i] & submarine$Comm<=Boat_Batch_serv$month[j] & submarine$Stricken>Boat_Batch_serv$month[j] & submarine$Operator!=country & submarine$Builder==country),]$value)
     }
     if(i==1) {
       Boat_Batch_serv_tot=df
@@ -441,9 +736,10 @@ specs2_fcn=function() {
   
 }
 
-individual_fcn=function(country) {
-  submarine$Submarine=fct_reorder(submarine$Submarine, submarine$Rank)
-  print(ggplot(submarine[submarine$Operator==country,], aes(x=as.factor(Submarine), ymin=Laid, ymax=Launch)) +
+individual_fcn=function() {
+  submarine1=submarine[submarine$Operator==country,]
+  submarine1$Submarine=fct_reorder(submarine1$Submarine, submarine1$Rank)
+  print(ggplot(submarine1, aes(x=as.factor(Submarine), ymin=Laid, ymax=Launch)) +
           geom_linerange(col="goldenrod1", size=6) +
           geom_linerange(aes(ymin=Launch, ymax=Compl), col="goldenrod2", size=6) + 
           geom_linerange(aes(ymin=Compl, ymax=Comm), col="lightgreen", size=6) + 
@@ -451,7 +747,7 @@ individual_fcn=function(country) {
           geom_linerange(aes(ymin=Decomm, ymax=Stricken), col="lightblue", size=6) + 
           geom_linerange(aes(ymin=Stricken, ymax=Sold), col="lightgrey", size=6) + 
           geom_linerange(aes(ymin=Sold, ymax=Foreign), col="lightgreen", size=6) + 
-          geom_text(data=submarine[submarine$Fate%in%c("active","building","captured","captured incomplete","hulked","incomplete",
+          geom_text(data=submarine1[submarine1$Fate%in%c("active","building","captured","captured incomplete","hulked","incomplete",
                                                                    "modernized","museum","reserve","retired","scuttled"),],
                     aes(label=Fate,y=Stricken, col=Fate), size=3.5,hjust=-0.05) +
           scale_color_manual(values=c(
@@ -465,20 +761,57 @@ individual_fcn=function(country) {
                       "retired"="black",
                       "scuttled"="purple",
                       "surrendered"="brown")) +
-          geom_text(data=submarine[submarine$Fate%in%c("lost","total loss"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause), y=Lost), col="red", size=3.5,hjust=-0.05) +
-          geom_text(data=submarine[submarine$Fate%in%c("captured","captured incomplete","surrendered"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause), y=Lost), col="brown", size=3.5,hjust=-0.05) +
-          geom_text(data=submarine[submarine$Fate%in%c("transferred","transferred incomplete"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause), y=Sold), col="forestgreen", size=3.5,hjust=-0.05) +
-          geom_text(aes(label=Version, y=min(submarine[submarine$Operator==country,]$Order, na.rm=T)), size=3,hjust=-0.05) +
+          geom_text(data=submarine1[submarine1$Fate%in%c("lost","total loss"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause," (",Loss," killed)"), y=Lost), col="red", size=3.5,hjust=-0.05) +
+          geom_text(data=submarine1[submarine1$Fate%in%c("captured","captured incomplete","surrendered"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause), y=Lost), col="brown", size=3.5,hjust=-0.05) +
+          geom_text(data=submarine1[submarine1$Fate%in%c("transferred","transferred incomplete"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause), y=Sold), col="forestgreen", size=3.5,hjust=-0.05) +
+          geom_text(aes(label=Version, y=min(submarine1$Order, na.rm=T)), size=3,hjust=-0.05) +
     geom_hline(yintercept=as.Date("1914-07-01"), linetype="dashed", color = "forestgreen", size=1.5) +
     geom_hline(yintercept=as.Date("1918-11-01"), linetype="dashed", color = "forestgreen", size=1.5) +
     geom_hline(yintercept=as.Date("1939-09-01"), linetype="dashed", color = "forestgreen", size=1.5) +
     geom_hline(yintercept=as.Date("1945-09-01"), linetype="dashed", color = "forestgreen", size=1.5) +
-    scale_x_discrete(limits = rev(levels(as.factor(submarine[submarine$Operator==country,]$Submarine)))) +
-    coord_flip() + xlab("submarine name") + ylab("date") + theme(legend.position="none", axis.title.x = element_blank(), axis.title.y = element_blank()))
+    scale_x_discrete(limits = rev(levels(as.factor(submarine1$Submarine)))) +
+    coord_flip() + xlab("submarine1 name") + ylab("date") + theme(legend.position="none", axis.title.x = element_blank(), axis.title.y = element_blank()))
+}
+
+individual_fcn2=function() {
+  submarine2=submarine[submarine$Operator!=country,]
+  submarine2$Submarine2=fct_reorder(submarine2$Submarine2, submarine2$Rank)
+  print(ggplot(submarine2, aes(x=as.factor(Submarine2), ymin=Laid, ymax=Launch)) +
+          geom_linerange(col="goldenrod1", size=6) +
+          geom_linerange(aes(ymin=Launch, ymax=Compl), col="goldenrod2", size=6) + 
+          geom_linerange(aes(ymin=Compl, ymax=Comm), col="lightgreen", size=6) + 
+          geom_linerange(aes(ymin=Comm, ymax=Decomm), col="royalblue", size=6) + 
+          geom_linerange(aes(ymin=Decomm, ymax=Stricken), col="lightblue", size=6) + 
+          geom_linerange(aes(ymin=Stricken, ymax=Sold), col="lightgrey", size=6) + 
+          geom_linerange(aes(ymin=Sold, ymax=Foreign), col="lightgreen", size=6) + 
+          geom_text(data=submarine2[submarine2$Fate%in%c("active","building","captured","captured incomplete","hulked","incomplete",
+                                                       "modernized","museum","reserve","retired","scuttled"),],
+                    aes(label=Fate,y=Stricken, col=Fate), size=3.5,hjust=-0.05) +
+          scale_color_manual(values=c(
+            "active"="darkblue",
+            "building"="goldenrod1",
+            "hulked"="black",
+            "incomplete"="goldenrod1",
+            "modernized"="goldenrod1",
+            "museum"="black",
+            "reserve"="lightblue",
+            "retired"="black",
+            "scuttled"="purple",
+            "surrendered"="brown")) +
+          geom_text(data=submarine2[submarine2$Fate%in%c("lost","total loss"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause," (",Loss," killed)"), y=Lost), col="red", size=3.5,hjust=-0.05) +
+          geom_text(data=submarine2[submarine2$Fate%in%c("captured","captured incomplete","surrendered"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause), y=Lost), col="brown", size=3.5,hjust=-0.05) +
+          geom_text(data=submarine2[submarine2$Fate%in%c("transferred","transferred incomplete"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause), y=Sold), col="forestgreen", size=3.5,hjust=-0.05) +
+          geom_text(aes(label=Version, y=min(submarine2$Order, na.rm=T)), size=3,hjust=-0.05) +
+          geom_hline(yintercept=as.Date("1914-07-01"), linetype="dashed", color = "forestgreen", size=1.5) +
+          geom_hline(yintercept=as.Date("1918-11-01"), linetype="dashed", color = "forestgreen", size=1.5) +
+          geom_hline(yintercept=as.Date("1939-09-01"), linetype="dashed", color = "forestgreen", size=1.5) +
+          geom_hline(yintercept=as.Date("1945-09-01"), linetype="dashed", color = "forestgreen", size=1.5) +
+          scale_x_discrete(limits = rev(levels(as.factor(submarine2$Submarine2)))) +
+          coord_flip() + xlab("submarine name") + ylab("date") + theme(legend.position="none", axis.title.x = element_blank(), axis.title.y = element_blank()))
 }
 
 class_count_fcn=function(class) {
-  submarine_class=submarine[submarine$Class==class,]
+  submarine_class=submarine[submarine$Class%in%class,]
   
   Boat_Class = data.frame(month = seq(as.Date(min(submarine_class$Laid, na.rm=T)-30), as.Date(max(submarine_class$Stricken, na.rm=T)+30), by="month"))
   Boat_Class$Construction_boat = NA
@@ -513,16 +846,16 @@ class_count_fcn=function(class) {
     }
   }
   
-  g13=ggplot(Boat_Class_prod, aes(month,Construction_boat)) + geom_area(aes(fill=Builder), col="black") + ggtitle("built submarine_class_classs under construction by Builder") + 
+  g13=ggplot(Boat_Class_prod, aes(month,Construction_boat)) + geom_area(aes(fill=Builder), col="black") + ggtitle("submarine under construction by Builder") + 
     xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
-  g14=ggplot(Boat_Class_serv, aes(month,Service_boat)) + geom_area(aes(fill=Operator), col="black") + ggtitle("built submarine_class_classs in service by Builder") + 
+  g14=ggplot(Boat_Class_serv, aes(month,Service_boat)) + geom_area(aes(fill=Operator), col="black") + ggtitle(" in service by Operator") + 
     xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
   
   print(g13+g14)
 }
 
 class_batch_fcn=function(class) {
-  submarine_class=submarine[submarine$Class==class,]
+  submarine_class=submarine[submarine$Class%in%class,]
   
   Boat_Class = data.frame(month = seq(as.Date(min(submarine_class$Laid, na.rm=T)-30), as.Date(max(submarine_class$Stricken, na.rm=T)+30), by="month"))
   Boat_Class$Construction_boat = NA
@@ -544,15 +877,15 @@ class_batch_fcn=function(class) {
     }
   }
   
-  g17=ggplot(Boat_Class_batch, aes(month,Construction_boat)) + geom_area(aes(fill=Batch), col="black") + ggtitle("built submarine_class_classs under construction by Version") +
+  g17=ggplot(Boat_Class_batch, aes(month,Construction_boat)) + geom_area(aes(fill=Batch), col="black") + ggtitle("submarine under construction by Version") +
     xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
-  g18=ggplot(Boat_Class_batch, aes(month,Service_boat)) + geom_area(aes(fill=Batch), col="black") + ggtitle("built submarine_class_classs in service by Version") +
+  g18=ggplot(Boat_Class_batch, aes(month,Service_boat)) + geom_area(aes(fill=Batch), col="black") + ggtitle("submarine in service by Version") +
     xlab("date") + ylab("number of submarines") + theme(legend.position="bottom", axis.title.x = element_blank(), axis.title.y = element_blank())
   print(g17+g18)
 }
 
 class_serv_fcn=function(class) {
-  submarine_class=submarine[submarine$Class==class,]
+  submarine_class=submarine[submarine$Class%in%class,]
   
   Timeline=data.frame(day=seq(as.Date(min(submarine_class$Laid, na.rm=T)-30), as.Date("2025-01-01"), by="month"))
   Timeline$Incomplete=NA
@@ -603,7 +936,7 @@ class_serv_fcn=function(class) {
 }
 
 class_sub_fcn=function(class) {
-  submarine_class=submarine[submarine$Class==class,]
+  submarine_class=submarine[submarine$Class%in%class,]
   submarine_class$Submarine=fct_reorder(submarine_class$Submarine, submarine_class$Rank)
   print(ggplot(submarine_class[submarine_class$Class==class & submarine_class$Operator==country,], aes(x=as.factor(Submarine), ymin=Laid, ymax=Launch)) +
           geom_linerange(col="goldenrod1", size=6) +
@@ -627,7 +960,7 @@ class_sub_fcn=function(class) {
             "retired"="black",
             "scuttled"="purple",
             "surrendered"="brown")) +
-          geom_text(data=submarine_class[submarine_class$Fate%in%c("lost","total loss"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause), y=Lost), col="red", size=3.5,hjust=-0.05) +
+          geom_text(data=submarine_class[submarine_class$Fate%in%c("lost","total loss"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause," (",Loss," killed)"), y=Lost), col="red", size=3.5,hjust=-0.05) +
           geom_text(data=submarine_class[submarine_class$Fate%in%c("captured","captured incomplete","surrendered"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause), y=Lost), col="brown", size=3.5,hjust=-0.05) +
           geom_text(data=submarine_class[submarine_class$Fate%in%c("transferred","transferred incomplete"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause), y=Sold), col="forestgreen", size=3.5,hjust=-0.05) +
           geom_text(aes(label=Version, y=min(submarine[submarine$Class==class & submarine$Operator==country,]$Order, na.rm=T)), size=3,hjust=-0.05) +
@@ -639,5 +972,41 @@ class_sub_fcn=function(class) {
           coord_flip() + xlab("date") + ylab("submarine name") + theme(legend.position="none", axis.title.x = element_blank(), axis.title.y = element_blank()))
 }
 
+class_sub_fcn2=function(class) {
+  submarine_class=submarine[submarine$Class%in%class,]
+  submarine_class$Submarine=fct_reorder(submarine_class$Submarine, submarine_class$Rank)
+  print(ggplot(submarine_class[submarine_class$Class==class & submarine_class$Operator!=country,], aes(x=as.factor(Submarine), ymin=Laid, ymax=Launch)) +
+          geom_linerange(col="goldenrod1", size=6) +
+          geom_linerange(aes(ymin=Launch, ymax=Compl), col="goldenrod2", size=6) + 
+          geom_linerange(aes(ymin=Compl, ymax=Comm), col="lightgreen", size=6) + 
+          geom_linerange(aes(ymin=Comm, ymax=Decomm), col="royalblue", size=6) + 
+          geom_linerange(aes(ymin=Decomm, ymax=Stricken), col="lightblue", size=6) + 
+          geom_linerange(aes(ymin=Stricken, ymax=Sold), col="lightgrey", size=6) + 
+          geom_linerange(aes(ymin=Sold, ymax=Foreign), col="lightgreen", size=6) + 
+          geom_text(data=submarine_class[submarine_class$Fate%in%c("active","building","captured","captured incomplete","hulked","incomplete",
+                                                                   "modernized","museum","reserve","retired","scuttled"),],
+                    aes(label=Fate,y=Stricken, col=Fate), size=3.5,hjust=-0.05) +
+          scale_color_manual(values=c(
+            "active"="darkblue",
+            "building"="goldenrod1",
+            "hulked"="black",
+            "incomplete"="goldenrod1",
+            "modernized"="goldenrod1",
+            "museum"="black",
+            "reserve"="lightblue",
+            "retired"="black",
+            "scuttled"="purple",
+            "surrendered"="brown")) +
+          geom_text(data=submarine_class[submarine_class$Fate%in%c("lost","total loss"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause," (",Loss," killed)"), y=Lost), col="red", size=3.5,hjust=-0.05) +
+          geom_text(data=submarine_class[submarine_class$Fate%in%c("captured","captured incomplete","surrendered"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause), y=Lost), col="brown", size=3.5,hjust=-0.05) +
+          geom_text(data=submarine_class[submarine_class$Fate%in%c("transferred","transferred incomplete"),],aes(label=paste0(Fate,", ",Receiver,", ",Cause), y=Sold), col="forestgreen", size=3.5,hjust=-0.05) +
+          geom_text(aes(label=Version, y=min(submarine[submarine$Class==class & submarine$Operator==country,]$Order, na.rm=T)), size=3,hjust=-0.05) +
+          geom_hline(yintercept=as.Date("1914-07-01"), linetype="dashed", color = "forestgreen", size=1.5) +
+          geom_hline(yintercept=as.Date("1918-11-01"), linetype="dashed", color = "forestgreen", size=1.5) +
+          geom_hline(yintercept=as.Date("1939-09-01"), linetype="dashed", color = "forestgreen", size=1.5) +
+          geom_hline(yintercept=as.Date("1945-09-01"), linetype="dashed", color = "forestgreen", size=1.5) +
+          scale_x_discrete(limits = rev(levels(as.factor(submarine[submarine$Class==class & submarine$Operator==country,]$Submarine)))) +
+          coord_flip() + xlab("date") + ylab("submarine name") + theme(legend.position="none", axis.title.x = element_blank(), axis.title.y = element_blank()))
+}
 
 

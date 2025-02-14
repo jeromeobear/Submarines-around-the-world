@@ -6,8 +6,8 @@ date: "2024-07-18"
 
 ```{r, warning=F, echo=F, message=F}
 source("Functions.R")
-management_fcn(country="Australia")
 country="Australia"
+management_fcn()
 ```
 
 Australia is a Pacific nation of 26.7 million inhabitants. It is by far the largest nation in Oceania, covering the whole Australian continental mainland, with an extremely long coastline. The modern country of Australia is a descendant of the British colonial period which started on the continent in the 1780s. As with most other British colonies in which a large European population settled, the path to independence was very gradual and long, from federation in 1901 to full independence in 1986 - though the country had been functionally independent since after World War 1. Today Australia remains a part of the Commonwealth Realm, with the British monarch as head of state.
@@ -21,16 +21,16 @@ Australia has made major submarine news in 2021. The 6 Collins were to be replac
 # Submarines operated by Australia
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
-summary_fcn(country="Australia")
+summary_fcn()
 ```
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
-weapons_fcn(country="Australia")
+weapons_fcn()
 ```
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
-builder_fcn(country="Australia")
-class_fcn(country="Australia")
+builder_fcn()
+class_fcn()
 ```
 
 # Individual submarines by class
@@ -162,5 +162,5 @@ class_sub_fcn(class="Type 471")
 # Full summary
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(20/4+1)}
-individual_fcn(country="Australia")
+individual_fcn()
 ```

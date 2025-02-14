@@ -6,8 +6,8 @@ date: "2024-11-18"
 
 ```{r, warning=F, echo=F, message=F}
 source("Functions.R")
-management_fcn(country="Albania")
 country="Albania"
+management_fcn()
 ```
 
 Albania is a Small Mediterranean country in Southern Europe with 2.8 million inhabitants. Occupied by Italy during World War 2 it fell under Soviet influence after liberation. It was a founding member of the Warsaw pact, being a member from 1955. However, following a split with the Soviet Union it withheld support from the pact in 1961 and withdrew fully in 1968. It remained a single-party communist state however, but with closer ties to China until the end of the cold war.It has since democratized, and come into closer contact with Western powers. Albania joined NATO in 2009, and is a candidate for EU accession.
@@ -19,11 +19,11 @@ As a whole, Albania has operated a total of 4 submarines, all of Soviet origin a
 # Submarines operated by Albania
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
-summary_fcn(country="Albania")
+summary_fcn()
 ```
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
-weapons_fcn(country="Albania")
+weapons_fcn()
 ```
 
 # Individual submarines by class

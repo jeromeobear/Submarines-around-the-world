@@ -12,6 +12,10 @@ left:
         href: ./Argentina.html
       - text: "Australia"
         href: ./Australia.html
+      - text: "Bangladesh"
+        href: ./Australia.html
+      - text: "Brazil"
+        href: ./Australia.html
   - text: "World war 2"
     menu:
       - text: "Summary"

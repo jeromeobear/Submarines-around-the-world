@@ -1,0 +1,44 @@
+---
+title: "Bangladesh"
+output: html_document
+date: "2025-02-14"
+---
+
+```{r, warning=F, echo=F, message=F}
+source("Functions.R")
+country="Bangladesh"
+management_fcn()
+```
+
+Bangladesh is a South-East Asian country of 173.6 million inhabitants. With it's relatively small size it makes it the most densely populated country in the worlds that is not a city state, a tiny island nation, or a micro-state. It has coast-line along the Indian Ocean, between India and Thailand. A former British colony as part of the Raj of India, Bangladesh was initially a part of Pakistan following decolonization. It gained full independance in 1971 as a result of the short but intense Indo-Pakistani War of 1971, and the associated Bangladesh Liberation War. It's navy was founded during the war. Initially, Bangladesh sourced ships from the United Kingdom, but this has now diversified to including ships from varied sources. Today, the navy's main force includes 15 missile armed frigates and corvettes (from the UK, South Korea, and China) and 8 gun armed patrol ships (from the US, UK, South Korea, and China).
+
+Bangladesh only very recently started operating submarines with the acquisition of two second-hand chines submarines in 2016, which constitute the current submarine fleet.
+
+# Submarines operated by Bangladesh
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+summary_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
+weapons_fcn()
+```
+
+# Individual submarines by class
+
+## Type 035 class
+
+Two second-hand Type 035 submarines acquired from China in 2016.
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Type 035",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Type 035",c("Version","Boats","Year","Torpedo_text","Missiles")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Type 035")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=2/4+1}
+class_sub_fcn(class="Type 035")
+```

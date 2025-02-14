@@ -6,8 +6,8 @@ date: "2024-11-18"
 
 ```{r, warning=F, echo=F, message=F}
 source("Functions.R")
-management_fcn(country="Algeria")
 country="Algeria"
+management_fcn()
 ```
 
 Algeria is a North African country of 46.3 million people with a coastline along the Mediterranean sea. A former French colony, the modern country of Algeria gained it's independence after a long and costly war in 1962. It's navy dates back from its independence and the country stayed non-aligned throughout the cold war, allowing it to source material from a variety of countries. Its major surface fleet units today include an Italian built amphibious transport dock, 2 British built landing ships, and 9 frigates or large corvettes (2 German, 4 Chinese, and 3 Soviet built).
@@ -17,15 +17,15 @@ Algeria is a relatively new entry in the world of submarines. All acquisitions i
 # Submarines operated by Algeria
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
-summary_fcn(country="Algeria")
+summary_fcn()
 ```
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
-weapons_fcn(country="Algeria")
+weapons_fcn()
 ```
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
-class_fcn(country="Algeria")
+class_fcn()
 ```
 
 # Individual submarines by class
@@ -82,5 +82,5 @@ class_sub_fcn(class="Project 877")
 # Full summary
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(8/4+1)}
-individual_fcn(country="Algeria")
+individual_fcn()
 ```
