@@ -16,6 +16,8 @@ left:
         href: ./Bangladesh.html
       - text: "Brazil"
         href: ./Brazil.html
+      - text: "Bulgaria"
+        href: ./Bulgaria.html
   - text: "World war 2"
     menu:
       - text: "Summary"
