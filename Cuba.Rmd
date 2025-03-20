@@ -1,0 +1,40 @@
+---
+title: "Cuba"
+output: html_document
+date: "2025-03-06"
+---
+
+```{r, warning=F, echo=F, message=F}
+source("Functions.R")
+country="Cuba"
+management_fcn()
+```
+
+# Submarines operated by Cuba
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+summary_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
+weapons_fcn()
+```
+
+# Individual submarines by class
+
+## Project 641 class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Project 641",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Project 641",c("Version","Boats","Year","Torpedo_text")])
+```
+
+![](https://www.shipbucket.com/files/real/CU/Project%20641%20(Foxtrot)/none/9162_729_20230119203347.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Project 641")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=3/4+1}
+class_sub_fcn(class="Project 641")
+```

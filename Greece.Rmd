@@ -1,0 +1,188 @@
+---
+title: "Greece"
+output: html_document
+date: "2024-06-24"
+---
+
+```{r, warning=F, echo=F, message=F}
+source("Functions.R")
+country="Greece"
+management_fcn()
+```
+
+# Submarines operated by Greece
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+summary_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
+weapons_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
+type_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+builder_fcn()
+class_fcn()
+```
+
+# Individual submarines by class
+
+## Specification summaries
+
+```{r, warning=F, echo=F, message=F, fig.width=15, fig.height=15/4+1}
+specs1_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=15, fig.height=15/2+2}
+specs2_fcn()
+```
+
+## Nordenfeldt class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Nordenfelt",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Nordenfelt",c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Nordenfelt")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=1/4+1}
+class_sub_fcn(class="Nordenfelt")
+```
+
+## Laubeuf class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Q-004 Laubeuf",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Q-004 Laubeuf",c("Version","Boats","Year","Torpedo_text")])
+```
+
+![](https://www.shipbucket.com/files/real/GR/Delfin/none/1497_Delfin_20230603222046.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Q-004 Laubeuf")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4/4+1}
+class_sub_fcn(class="Q-004 Laubeuf")
+```
+
+## French 600t classes
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Q-121 600t",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Q-121 600t",c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+![](https://www.shipbucket.com/files/real/GR/Katsonis/none/1498_Y2Papanikolis_20230603222054.png)
+![](https://www.shipbucket.com/files/real/GR/Protefs/none/6789_Y3Protefs_20230603222059.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_batch_fcn(class="Q-121 600t")
+class_serv_fcn(class="Q-121 600t")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=6/4+1}
+class_sub_fcn(class="Q-121 600t")
+```
+
+## Italian 600t Perla class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="600t",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="600t",c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="600t")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=1/4+1}
+class_sub_fcn(class="600t")
+```
+
+## U class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="U",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="U",c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_batch_fcn(class="U")
+class_serv_fcn(class="U")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=6/4+1}
+class_sub_fcn(class="U")
+```
+
+## Gato, Balao, and Tench classes
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class%in%c("SS-212 Gato","SS-285 Balao","SS-417 Tench"),c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class%in%c("SS-212 Gato","SS-285 Balao","SS-417 Tench"),c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_batch_fcn(class=c("SS-212 Gato","SS-285 Balao","SS-417 Tench"))
+class_serv_fcn(class=c("SS-212 Gato","SS-285 Balao","SS-417 Tench"))
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=2/4+1}
+class_sub_fcn(class="SS-212 Gato")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=2/4+1}
+class_sub_fcn(class="SS-285 Balao")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=1/4+1}
+class_sub_fcn(class="SS-417 Tench")
+```
+
+## Type 209 class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Type 209",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Type 209",c("Version","Boats","Year","Torpedo_text","Missile_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_batch_fcn(class="Type 209")
+class_serv_fcn(class="Type 209")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=8/4+1}
+class_sub_fcn(class="Type 209")
+```
+
+## Type 214 class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Type 214",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Type 214",c("Version","Boats","Year","Torpedo_text","Missile_text")])
+```
+
+![](https://www.shipbucket.com/files/real/GR/Type%20214%20Papanikolis/none/1499_S120Papanikolis_20230603222036.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_count_fcn(class="Type 214")
+class_serv_fcn(class="Type 214")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4/4+1}
+class_sub_fcn(class="Type 214")
+```
+
+# Full summary
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(34/4+1)}
+individual_fcn()
+```

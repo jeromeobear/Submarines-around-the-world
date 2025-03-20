@@ -18,6 +18,20 @@ left:
         href: ./Brazil.html
       - text: "Bulgaria"
         href: ./Bulgaria.html
+      - text: "Chile"
+        href: ./Chile.html
+      - text: "Colombia"
+        href: ./Colombia.html
+      - text: "Cuba"
+        href: ./Cuba.html
+      - text: "Denmark"
+        href: ./Denmark.html
+      - text: "Egypt"
+        href: ./Egypt.html
+      - text: "Greece"
+        href: ./Greece.html
+      - text: "Turkey"
+        href: ./Turkey.html
   - text: "World war 2"
     menu:
       - text: "Summary"

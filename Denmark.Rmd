@@ -1,0 +1,214 @@
+---
+title: "Denmark"
+output: html_document
+date: "2024-06-24"
+---
+
+```{r, warning=F, echo=F, message=F}
+source("Functions.R")
+country="Denmark"
+management_fcn()
+```
+
+# Submarines operated by Denmark
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+summary_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
+weapons_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
+type_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+builder_fcn()
+class_fcn()
+```
+
+# Individual submarines by class
+
+## Specification summaries
+
+```{r, warning=F, echo=F, message=F, fig.width=15, fig.height=12/4+1}
+specs1_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=15, fig.height=12/2+2}
+specs2_fcn()
+```
+
+## Fiat-Laurenti class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Fiat-Laurenti Coastal",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Fiat-Laurenti Coastal",c("Version","Boats","Year","Torpedo_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Fiat-Laurenti Coastal")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=1/4+1}
+class_sub_fcn(class="Fiat-Laurenti Coastal")
+```
+
+## A class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="kU020",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="kU020",c("Version","Boats","Year","Torpedo_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_count_fcn(class="kU020")
+class_serv_fcn(class="kU020")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=6/4+1}
+class_sub_fcn(class="kU020")
+```
+
+## B class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="B",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="B",c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+![](https://www.shipbucket.com/files/real/DK/Aegir%20(B%20class)/none/2726_B9Ran_20230703213324.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="B")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=6/4+1}
+class_sub_fcn(class="B")
+```
+
+## C class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="C",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="C",c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_count_fcn(class="C")
+class_batch_fcn(class="C")
+class_serv_fcn(class="C")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=3/4+1}
+class_sub_fcn(class="C")
+```
+
+## D class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="D",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="D",c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="D")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=2/4+1}
+class_sub_fcn(class="D")
+```
+
+## H class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="H",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="H",c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="H")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4/4+1}
+class_sub_fcn(class="H")
+```
+
+## U class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="U",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="U",c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+![](https://www.shipbucket.com/files/real/DK/U%20class%20(Group%203)/none/9144_U1Springeren_20230119195235.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="U")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=3/4+1}
+class_sub_fcn(class="U")
+```
+
+## Delfinen class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="S-326 Delfinen",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="S-326 Delfinen",c("Version","Boats","Year","Torpedo_text")])
+```
+
+![](https://www.shipbucket.com/files/real/DK/Delfinen/none/2727_S326Delfinen_20230703213339.png)
+![](https://www.shipbucket.com/files/real/DK/Delfinen/none/2728_S329Springeren_20230703213349.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="S-326 Delfinen")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=2/4+1}
+class_sub_fcn(class="S-326 Delfinen")
+```
+
+## Type 205 and 207 classes
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Type 205",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Type 205",c("Version","Boats","Year","Torpedo_text")])
+```
+
+![](https://www.shipbucket.com/files/real/DK/Type%20205%20(Klasse%20205)/none/2729_S320Narhvalen_20230703213333.png)
+![](https://www.shipbucket.com/files/real/DK/Type%20207%20Kobben/none/9167_S322Tumleren_20240815203441.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_batch_fcn(class="Type 205")
+class_serv_fcn(class="Type 205")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=2/4+1}
+class_sub_fcn(class="Type 205")
+```
+
+## class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Type A-14",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Type A-14",c("Version","Boats","Year","Torpedo_text")])
+```
+
+![](http://www.shipbucket.com/drawings/9235/file)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Type A-14")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=1/4+1}
+class_sub_fcn(class="Type A-14")
+```
+
+# Full summary
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(35/4+1)}
+individual_fcn()
+```

@@ -1,7 +1,7 @@
 ---
 title: "Bulgaria"
 output: html_document
-date: "2024-06-24"
+date: "2025-02-17"
 ---
 
 ```{r, warning=F, echo=F, message=F}
@@ -9,6 +9,10 @@ source("Functions.R")
 country="Bulgaria"
 management_fcn()
 ```
+
+Bulgaria is a small Eastern European country of 6.7 million inhabitants with a short coastline on the Black sea. Though having a long historical lineage, the modern country of Bulgaria traces it's origin to 1878. Bulgaria emerged as a political entity out of Ottoman Empire territory following the Russo-Turkish war as a buffer state (the principality of Bulgaria) between the two empires, but remaining a vassal of the Ottomans. Full independence was achieved in 1908 (Kingdom of Bulgaria), but the navy was founded during the principality period in 1899. Bulgaria's early navy focused mostly on torpedo boats and riverine warfare on the Danube. A key player in both Balkan wars, it joined the Central Powers in WW1 and the axis in WW2. At the end of WW2 the monarchy was abolished and the country became a Soviet satellite which joined the Warsaw pact in 1955. During this period, the navy focused again mostly on coastal and riverine warfare with torpedo, missile, and minesweeping boats. However, the submarine arm became established during this period, and the navy occasionaly received larger surface ships, including an old Russian destroyer in the late 1940s, and an ex-Soviet project 1159 missile frigate in 1989. Following the fall of the Soviet Union, Bulgaria joined NATO in 2004, and the navy changed to have more large surface warships. Today the main assets are 4 small missile frigates (3 ex-Belgian and 1 ex-Soviet) and 2 large gun-armed patrol ships in construction.
+
+The submarine history of Bulgaria starts during WW1, when Germany offered a second-hand UB-I coastal submarine. This period was short however with the boat surrendering at the end of the conflict, and a submarine arm only being revived in 1954 with the reception of 3 ex-Soviet M class coastal submarines. This was followed by 2 Project 613 in 1958, 2 Project 633 in 1972, and 2 more Project 633 in 1983-85, with each batch of boats replacing the prior batch. The last two survived into the NATO period, with the last retiring in 2011. Since then, Bulgaria has not operated submarines. In all Bulgaria has operated 10 submarines.
 
 # Submarines operated by Bulgaria
 
@@ -26,7 +30,7 @@ type_fcn()
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
 builder_fcn()
-#class_sub_fcn()
+class_fcn()
 ```
 
 # Individual submarines by class
@@ -43,14 +47,14 @@ specs2_fcn()
 
 ## UB-I class
 
+A second hand coastal German submarine
+
 ```{r, warning=F, echo=F, message=F}
 kable(specs[specs$Class=="UB-I",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
-#kable(weaps[weaps$Class=="UB-I",c("Version","Boats","Year","Torpedo")])
+kable(weaps[weaps$Class=="UB-I",c("Version","Boats","Year","Torpedo_text")])
 ```
 
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
-class_count_fcn(class="UB-I")
-class_batch_fcn(class="UB-I")
 class_serv_fcn(class="UB-I")
 ```
 
@@ -58,18 +62,18 @@ class_serv_fcn(class="UB-I")
 class_sub_fcn(class="UB-I")
 ```
 
-## Project 96
+## Project 96 (Series XV)
 
-![](http://www.shipbucket.com/drawings/9153/file)
+Three second-hand coastal Soviet submarines of the M class.
 
 ```{r, warning=F, echo=F, message=F}
-kable(specs[specs$Class=="Soviet_Union_M",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
-#kable(weaps[weaps$Class=="Soviet_Union_M",c("Version","Boats","Year","Torpedo")])
+kable(specs[specs$Class=="M",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="M",c("Version","Boats","Year","Torpedo_text","Gun_text")])
 ```
 
+![](https://www.shipbucket.com/files/real/BG/Project%2096%20Malyutka%20M-XV/none/9153_362_20230119201916.png)
+
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
-class_count_fcn(class="M")
-class_batch_fcn(class="M")
 class_serv_fcn(class="M")
 ```
 
@@ -79,16 +83,16 @@ class_sub_fcn(class="M")
 
 ## Project 613
 
-![](http://www.shipbucket.com/drawings/9157/file)
+Two second-hand Soviet attack submarines.
 
 ```{r, warning=F, echo=F, message=F}
 kable(specs[specs$Class=="Project 613",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
-#kable(weaps[weaps$Class=="Project 613",c("Version","Boats","Year","Torpedo")])
+kable(weaps[weaps$Class=="Project 613",c("Version","Boats","Year","Torpedo_text")])
 ```
 
+![](https://www.shipbucket.com/files/real/BG/Project%20613%20(Whiskey)/none/9157_41_20230119202323.png)
+
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
-class_count_fcn(class="Project 613")
-class_batch_fcn(class="Project 613")
 class_serv_fcn(class="Project 613")
 ```
 
@@ -98,16 +102,16 @@ class_sub_fcn(class="Project 613")
 
 ## Project 633
 
-![](http://www.shipbucket.com/drawings/9236/file)
+Four second-hand Soviet attack submarines delivered in two pairs. They only briefly served all four together.
 
 ```{r, warning=F, echo=F, message=F}
 kable(specs[specs$Class=="Project 633",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
-#kable(weaps[weaps$Class=="Project 633",c("Version","Boats","Year","Torpedo")])
+kable(weaps[weaps$Class=="Project 633",c("Version","Boats","Year","Torpedo_text")])
 ```
 
+![](https://www.shipbucket.com/files/real/BG/Project%20633%20(Romeo)/none/9236_84Slava_20230511203527.png)
+
 ```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
-class_count_fcn(class="Project 633")
-class_batch_fcn(class="Project 633")
 class_serv_fcn(class="Project 633")
 ```
 

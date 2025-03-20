@@ -1,0 +1,166 @@
+---
+title: "Chile"
+output: html_document
+date: "2024-06-24"
+---
+
+```{r, warning=F, echo=F, message=F}
+source("Functions.R")
+country="Chile"
+management_fcn()
+```
+
+Argentina is a South American country of 19.8 million inhabitants with a long Pacific coast line which includes the strategic Cape Horn between Pacific and Atlantic. Chile declared independence from Spain in 1818, with it's navy having been founded the year prior.
+
+Chile's naval development has often paralleled Argentina and Brazil, with the three locking into regional arms races at various times. During the time frame of submarine operations we can identify various periods of growth. The first in the 1910s with the delivery of one battleship, 5 destroyers, and 6 submarines from the UK. Then came the late 1920s with 6 new destroyers and 3 new submarines from the UK. The 1950s and 1960s saw the delivery of war surplus material from the US (2 cruisers, 4 destroyers, 2 submarines, 7 frigates). From the 1970s onward a mix of new and second-hand material was acquired in including 1 Swedish cruiser, 4 British missile destroyers, and 14 missile frigates from the UK, the Netherlands, and Australia. This period also saw the acquisition of 6 new submarines in 3 pairs.
+
+Submarine operations started in 1917 with the acquisition of 6 Holland 602 type boats built in the US. These were initially bought by the UK, but which the US wouldn't deliver to a waring nation. Three O type boats complemented them in the 1920s, giving the Chile the largest submarine fleet in Latin America during WW2 (9 boats). Eight boats were received in four subsequent pairs post-war, with four of these (two Type 209 and two Scorpene) being in service today.
+
+# Submarines operated by Chile
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+summary_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
+weapons_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=6}
+type_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+builder_fcn()
+class_fcn()
+```
+
+# Individual submarines by class
+
+## Specification summaries
+
+```{r, warning=F, echo=F, message=F, fig.width=15, fig.height=6/4+1}
+specs1_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=15, fig.height=6/2+2}
+specs2_fcn()
+```
+
+## class
+
+### H class
+
+Holland 602 boats contracted by the Royal Navy to the US, but which couldn't be delivered because of the ongoing involvement in World War 1.
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="SS-028 Holland 602",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="SS-028 Holland 602",c("Version","Boats","Year","Torpedo_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="SS-028 Holland 602")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=6/4+1}
+class_sub_fcn(class="SS-028 Holland 602")
+```
+
+### O'Brien class
+
+A modified O class type built in the UK.
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="O",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="O",c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="O")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=3/4+1}
+class_sub_fcn(class="O")
+```
+
+### Balao class
+
+Two former unmodified US Balao class boats.
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="SS-285 Balao",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="SS-285 Balao",c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+![](https://www.shipbucket.com/files/real/CL/Balao/none/1114_SS-21Simpson1962_20230426200911.png)
+![](https://www.shipbucket.com/files/real/CL/Balao/none/1113_SS-22Thomson_20230426200921.png)
+![](https://www.shipbucket.com/files/real/CL/Balao/none/1115_SS-21Simpson1978_20230426200916.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="SS-285 Balao")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=2/4+1}
+class_sub_fcn(class="SS-285 Balao")
+```
+
+### Oberon class
+
+Two newly built Oberon boats from the UK.
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="S-009 Oberon",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="S-009 Oberon",c("Version","Boats","Year","Torpedo_text")])
+```
+
+![](https://www.shipbucket.com/files/real/CL/Oberon/none/1112_S-22O'Brien_20230426200905.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="S-009 Oberon")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=2/4+1}
+class_sub_fcn(class="S-009 Oberon")
+```
+
+### Type 209 class
+
+Two German built Type 209/1400L boats.
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Type 209",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Type 209",c("Version","Boats","Year","Torpedo_text","Missile_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Type 209")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=2/4+1}
+class_sub_fcn(class="Type 209")
+```
+
+### Scorpene class
+
+Two newly built Scorpene CM-2000 boats. One was built in France, the other in Spain as the program was a joint venture at this point in time.
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Scorpene",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Scorpene",c("Version","Boats","Year","Torpedo_text","Missiles")])
+```
+
+![](http://www.shipbucket.com/drawings/9077/file)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Scorpene")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=2/4+1}
+class_sub_fcn(class="Scorpene")
+```
+
+# Full summary
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(17/4+1)}
+individual_fcn()
+```

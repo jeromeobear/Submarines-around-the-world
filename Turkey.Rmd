@@ -1,0 +1,209 @@
+---
+title: "Turkey"
+output: html_document
+date: "2024-06-24"
+---
+
+```{r, warning=F, echo=F, message=F}
+source("Functions.R")
+country="Turkey"
+management_fcn()
+```
+
+# Submarines operated by Turkey
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+summary_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
+weapons_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
+type_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+builder_fcn()
+class_fcn()
+```
+
+# Individual submarines by class
+
+## Specification summaries
+
+```{r, warning=F, echo=F, message=F, fig.width=15, fig.height=19/4+1}
+specs1_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=15, fig.height=19/2+2}
+specs2_fcn()
+```
+
+## Emeraude class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Q-041 Emeraude",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Q-041 Emeraude",c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Q-041 Emeraude")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=1/4+1}
+class_sub_fcn(class="Q-041 Emeraude")
+```
+
+## Inonu class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="UB-III",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="UB-III",c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+![](https://www.shipbucket.com/files/real/TR/UB%20III/none/914_Birinci%C4%B0n%C3%B6n%C3%BC_20230424191808.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="UB-III")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=2/4+1}
+class_sub_fcn(class="UB-III")
+```
+
+## Medium Italian submarines
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class%in%c("Ocean Medium","600t"),c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class%in%c("Ocean Medium","600t"),c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_batch_fcn(class=c("Ocean Medium","600t"))
+class_serv_fcn(class=c("Ocean Medium","600t"))
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=2/4+1}
+class_sub_fcn(class=c("Ocean Medium","600t"))
+```
+
+## Ocean going German classes
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class%in%c("Type 001","Type 009"),c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class%in%c("Type 001","Type 009"),c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+![](https://www.shipbucket.com/files/real/ES/Type%20IA/none/8723_E-1_20230722191550.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_count_fcn(class=c("Type 001","Type 009"))
+class_batch_fcn(class=c("Type 001","Type 009"))
+class_serv_fcn(class=c("Type 001","Type 009"))
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=1/4+1}
+class_sub_fcn(class="Type 001")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4/4+1}
+class_sub_fcn(class="Type 009")
+```
+
+## British S class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="S",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="S",c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="S")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4/4+1}
+class_sub_fcn(class="S")
+```
+
+## American fleet submarines
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class%in%c("SS-212 Gato","SS-285 Balao","SS-417 Tench"),c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class%in%c("SS-212 Gato","SS-285 Balao","SS-417 Tench"),c("Version","Boats","Year","Torpedo_text","Gun_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_batch_fcn(class=c("SS-212 Gato","SS-285 Balao","SS-417 Tench"))
+class_serv_fcn(class=c("SS-212 Gato","SS-285 Balao","SS-417 Tench"))
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=2/4+1}
+class_sub_fcn(class="SS-212 Gato")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=17/4+1}
+class_sub_fcn(class="SS-285 Balao")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=2/4+1}
+class_sub_fcn(class="SS-417 Tench")
+```
+
+## Tang class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="SS-563 Tang",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="SS-563 Tang",c("Version","Boats","Year","Torpedo_text")])
+```
+
+![](https://www.shipbucket.com/files/real/TR/Balao/none/915_S-343Pirireis_20230424191813.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="SS-563 Tang")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=2/4+1}
+class_sub_fcn(class="SS-563 Tang")
+```
+
+## Type 209 class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Type 209",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Type 209",c("Version","Boats","Year","Torpedo_text","Missile_text")])
+```
+
+![](https://www.shipbucket.com/files/real/TR/Type%20209/1200%20Atilay/none/916_S-347Atilay_20230424191819.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_count_fcn(class="Type 209")
+class_batch_fcn(class="Type 209")
+class_serv_fcn(class="Type 209")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=14/4+1}
+class_sub_fcn(class="Type 209")
+```
+
+## Type 214 class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Type 214",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Type 214",c("Version","Boats","Year","Torpedo_text","Missile_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Type 214")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=6/4+1}
+class_sub_fcn(class="Type 214")
+```
+
+# Full summary
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(60/4+1)}
+individual_fcn()
+```

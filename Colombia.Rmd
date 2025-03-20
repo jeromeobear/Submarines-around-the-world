@@ -1,0 +1,81 @@
+---
+title: "Colombia"
+output: html_document
+date: "2025-02-25"
+---
+
+```{r, warning=F, echo=F, message=F}
+source("Functions.R")
+country="Colombia"
+management_fcn()
+```
+
+Colombia is a South American nation of 53.2 million inhabitants with two seperate coastlines on the Pacific ocean and Caribbean sea. Colombia declared independance in 1810, and it's navy dates from 1823.
+
+Contrary two some other South American nations, the navy was never very large and didn't operate submarines until the acquisition of a pair of type 209 submarines in the 1970s, along some midget submarines. These were complemented by four ex-German navy Type 206As in 2012. All four are in service today.
+
+# Submarines operated by Colombia
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+summary_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
+weapons_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+class_fcn()
+```
+
+# Individual submarines by class
+
+## Specification summaries
+
+```{r, warning=F, echo=F, message=F, fig.width=15, fig.height=2/4+1}
+specs1_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=15, fig.height=2/2+2}
+specs2_fcn()
+```
+
+## Type 209
+
+Two Type 209/1200 boats
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Type 209",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Type 209",c("Version","Boats","Year","Torpedo_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Type 209")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=2/4+1}
+class_sub_fcn(class="Type 209")
+```
+
+## Type 206
+
+Ex-German navy boats
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Type 206",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Type 206",c("Version","Boats","Year","Torpedo_text","Mines")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Type 206")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=2/4+1}
+class_sub_fcn(class="Type 206")
+```
+
+# Full summary
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(4/4+1)}
+individual_fcn()
+```

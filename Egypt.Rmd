@@ -1,0 +1,109 @@
+---
+title: "Egypt"
+output: html_document
+date: "2024-06-24"
+---
+
+```{r, warning=F, echo=F, message=F}
+source("Functions.R")
+country="Egypt"
+management_fcn()
+```
+
+# Submarines operated by Egypt
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+summary_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=7}
+weapons_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=5}
+builder_fcn()
+class_fcn()
+```
+
+# Individual submarines by class
+
+## Specification summaries
+
+```{r, warning=F, echo=F, message=F, fig.width=15, fig.height=4/4+1}
+specs1_fcn()
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=15, fig.height=4/2+2}
+specs2_fcn()
+```
+
+## M class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="M",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="M",c("Version","Boats","Year","Torpedo_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="M")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=1/4+1}
+class_sub_fcn(class="M")
+```
+
+## Project 613 class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Project 613",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Project 613",c("Version","Boats","Year","Torpedo_text")])
+```
+
+![](https://www.shipbucket.com/files/real/EG/Project%20613%20(Whiskey)/none/9158_418_20230119202456.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Project 613")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=10/4+1}
+class_sub_fcn(class="Project 613")
+```
+
+## Project 633 class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Project 633",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Project 633",c("Version","Boats","Year","Torpedo_text","Missile_text")])
+```
+
+![](https://www.shipbucket.com/files/real/EG/Type%20033%20(Project%20633%20Romeo)/none/9237_852_20230509210720.png)
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_batch_fcn(class="Project 633")
+class_serv_fcn(class="Project 633")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=10/4+1}
+class_sub_fcn(class="Project 633")
+```
+
+## Type 209 class
+
+```{r, warning=F, echo=F, message=F}
+kable(specs[specs$Class=="Type 209",c("Version","Boats","Number","Displacement","Propulsion","Power","Fuel","Speed","Range","Depth")])
+kable(weaps[weaps$Class=="Type 209",c("Version","Boats","Year","Torpedo_text","Missile_text")])
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4}
+class_serv_fcn(class="Type 209")
+```
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=4/4+1}
+class_sub_fcn(class="Type 209")
+```
+
+# Full summary
+
+```{r, warning=F, echo=F, message=F, fig.width=10, fig.height=(25/4+1)}
+individual_fcn()
+```
